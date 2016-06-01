@@ -1,4 +1,4 @@
 
 exports.home = function(req, res){
-  res.render('index', {title: 'DAPS: Doctors As your PartnerS'});
+  res.render('pages/index', {title: 'DAPS: Doctors As your PartnerS'});
 };
