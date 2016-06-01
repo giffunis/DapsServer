@@ -1,7 +1,5 @@
-<% include ../partials/header %>
+<!-- views/pages/error.ejs -->
 
-  <%- message %>
-  <%- error.status %>
-  <%- error.stack %>
-
-<% include ../partials/footer %>
+<h1><%= message %></h1>
+<h2><%= error.status %></h2>
+<pre><%= error.stack %></pre>
