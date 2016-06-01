@@ -1,6 +1,5 @@
 var express = require('express');
 var glob = require('glob');
-
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -8,6 +7,7 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 var expressLayouts = require('express-ejs-layouts');
+var session = require('express-session');
 
 module.exports = function(app, config) {
 
@@ -29,10 +29,11 @@ module.exports = function(app, config) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  app.use(cookieParser());
+  app.use(cookieParser('TFG-2016'));
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
+  app.use(session());
 
   //Asignación de las rutas
   app.use('/', router);
