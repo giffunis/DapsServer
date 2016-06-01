@@ -35,6 +35,16 @@ module.exports = function(app, config) {
   app.use(methodOverride());
   app.use(session());
 
+  // Helpers dinamic
+  app.use(function(req,res,next){
+    if(!req.path.match(/\/login|\/logout|\/user/)){
+      req.session.redir = req.path;
+    }
+    // para hacer visible a las listas la variable req.session
+    res.locals.session = req.session;
+    next();
+  });
+
   //Asignación de las rutas
   app.use('/', router);
 
