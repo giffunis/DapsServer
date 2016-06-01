@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
+var expressLayouts = require('express-ejs-layouts');
 
 module.exports = function(app, config) {
 
@@ -17,6 +18,8 @@ module.exports = function(app, config) {
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
+  // view engine setup
+  app.set('layout', 'layout'); // defaults to 'layout'
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'ejs');
 
