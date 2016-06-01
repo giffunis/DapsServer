@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/head %>
+
+    <!-- Custom CSS -->
+    <link href="/css/login.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+          <div class="col-md-6 col-md-offset-3" id="logo">
+              <div class="login-panel panel panel-default" id="panel">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Añadir un nuevo doctor</h3>
+                  </div>
+                  <div class="panel-body">
+                    <% include ../../partials/errorValidate %>
+                      <form role="form" method="post" action="/doctor/new">
+                          <fieldset>
+                              <div class="form-group">
+                                  <input class="form-control" id="username"  name="doctor[username]" size="30" placeholder="Username "autofocus>
+                              </div>
+                              <div class="form-group">
+                                  <input class="form-control" placeholder="Password" name="doctor[password]" type="password" value="">
+                              </div>
+                              <!-- Change this to a button or input when using this as a form -->
+                              <button type="submit" name="commit" class="btn btn-success">Registrar</button>
+                          </fieldset>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <% include ../../partials/scripts_footer %>
+  </body>
+</html>
