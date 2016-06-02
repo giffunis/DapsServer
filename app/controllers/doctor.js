@@ -15,5 +15,5 @@ exports.new = function (req, res){
     mobile: 0
   });
 
-  res.render('pages/doctor/new', {docto: doctor, errors: errors});
+  res.render('pages/doctor/new', {doctor: doctor, errors: errors});
 };
