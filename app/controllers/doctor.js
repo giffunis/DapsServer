@@ -18,13 +18,16 @@ exports.new = function (req, res) {
   res.render('pages/doctor/new', {doctor: doctor, errors: errors});
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
   var doctor = new Doctor(req.body.doctor);
+  console.log(doctor.username);
   doctor.save().then(function(err){
     if(err){
       res.render('pages/doctor/new', {doctor: doctor, errors: err.errors});
     } else {
       res.redirect('/login');
     }
+  }).catch(function(error){
+    next(new Error(error));
   });
 };
