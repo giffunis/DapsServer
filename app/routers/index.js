@@ -6,6 +6,6 @@ var sessionController = require('../controllers/session');
 //  GET '/'
 router.get('/', homeController.home);
 // login GET
-router.get('/login', sessionController.login);
+router.get('/login', sessionController.new);
 
 module.exports = router;
