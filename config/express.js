@@ -13,6 +13,7 @@ module.exports = function(app, config) {
 
   // routes
   var router = require(config.root + '/app/routers/index');
+  var doctorRouter = require(config.root + '/app/routers/doctor');
 
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
@@ -47,6 +48,7 @@ module.exports = function(app, config) {
 
   //Asignación de las rutas
   app.use('/', router);
+  app.use('/doctor/', doctorRouter);
 
   app.use(function (req, res, next) {
     var err = new Error('Not Found');
