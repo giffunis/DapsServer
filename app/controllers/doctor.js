@@ -1,3 +1,6 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var Doctor = mongoose.model('Doctor');
 
 exports.new = function (req, res){
   var errors = req.session.errors || {};
