@@ -9,10 +9,10 @@ exports.new = function (req, res){
     username: "",
     password: "",
     name_and_surname: "",
-    colegiado: 0,
+    colegiado: null,
     especialidad: "",
     email: "",
-    mobile: 0
+    mobile: null
   });
 
   res.render('pages/doctor/new', {doctor: doctor, errors: errors});
