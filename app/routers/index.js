@@ -4,5 +4,7 @@ var homeController = require('../controllers/home');
 
 //  GET '/'
 router.get('/', homeController.home);
+// login GET
+router.get('/login', homeController.login);
 
-module.exports = router; 
+module.exports = router;
