@@ -21,3 +21,8 @@ exports.create = function (req, res) {
     res.redirect('/doctor/');
   });
 };
+
+exports.destroy = function(req, res){
+  delete req.session.user;
+  res.redirect('/');
+};
