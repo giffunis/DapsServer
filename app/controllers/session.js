@@ -11,7 +11,7 @@ exports.create = function (req, res) {
   var doctorController = require('./doctor');
   doctorController.autenticar(username, password, function (error, user) {
     if (error) {
-      req.session.errors = [{"message": error}];
+      req.session.errors = [{"message": error.message}];
       res.redirect('/login');
       return;
     }
