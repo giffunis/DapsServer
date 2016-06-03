@@ -47,3 +47,7 @@ exports.create = function(req, res, next) {
     }
   });
 };
+
+exports.show = function(req,res){
+  res.render('pages/doctor/index');
+};
