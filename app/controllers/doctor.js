@@ -24,6 +24,9 @@ exports.create = function(req, res, next) {
 
   doctor.save(function(err){
     if(err){
+        for(var i in err.errors){
+          console.log(err.errors[i].message);
+        }
         res.render('pages/doctor/new', {doctor: doctor, errors: err.errors});
     } else {
       res.redirect('/login');
