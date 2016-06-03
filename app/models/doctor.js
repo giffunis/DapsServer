@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var validators = require('mongoose-validators');
 
 var DoctorSchema = new Schema({
   username: {
@@ -28,7 +29,8 @@ var DoctorSchema = new Schema({
   },
   email: {
     type: String,
-    required: [true, 'Falta rellenar el campo: email']
+    required: [true, 'Falta rellenar el campo: email'],
+    validate: validators.isEmail()
   },
   mobile: {
     type: Number
