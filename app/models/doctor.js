@@ -23,7 +23,8 @@ var DoctorSchema = new Schema({
   colegiado: {
     type: Number,
     max: [10, 'El número puesto, sobrepasa a los médicos colegiados en España'],
-    required: [true, 'El número de colegiado es obligatorio']
+    required: [true, 'El número de colegiado es obligatorio'],
+    unique: true
   },
   especialidad: {
     type: String,
@@ -32,7 +33,8 @@ var DoctorSchema = new Schema({
   email: {
     type: String,
     required: [true, 'Falta rellenar el campo: email'],
-    validate: validators.isEmail()
+    validate: validators.isEmail(),
+    unique: true
   },
   mobile: {
     type: String,
