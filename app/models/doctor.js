@@ -33,7 +33,13 @@ var DoctorSchema = new Schema({
     validate: validators.isEmail()
   },
   mobile: {
-    type: Number
+    type: String,
+    validate: {
+      validator: function(phone){
+        return /\s{+}\d{2}-\d{3}-\d{2}-\d{2}-\d{2}/.text(phone);
+      },
+      message:'{VALUE} No es un número válido, debe seguir la estructura: +XX-XXX-XX-XX-XX'
+    }
   }
 });
 
