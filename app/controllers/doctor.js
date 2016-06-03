@@ -2,15 +2,20 @@ var mongoose = require('mongoose');
 var Doctor = mongoose.model('Doctor');
 
 exports.autenticar = function (username, password, callback) {
-  Doctor.find({ username: username}, function (user){
-    if(user){
-      if (user.password == password) {
-        callback(null, user);
-      } else {
-        callback(new Error('El nombre de usuario o la contraseña no coinciden'));
-      }
+  Doctor.findOne({ username: username}, function (error, user){
+    if(error){
+      console.log('if error');
+      callback(new Error(error.message));
     } else {
-      callback (new Error('El nombre de usuario no existe'));
+      if (user) {
+        if (user.password == password) {
+          callback(null, user);
+        } else {
+          callback(new Error('El nombre de usuario y la contraseña no coinciden'));
+        }
+      } else {
+        callback(new Error('El nombre de usuario no existe'));
+      }
     }
   });
 };
