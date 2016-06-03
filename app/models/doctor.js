@@ -2,11 +2,13 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var validators = require('mongoose-validators');
+var uniqueValidator = require('mongoose-unique-validator');
 
 var DoctorSchema = new Schema({
   username: {
     type: String,
-    required: [true, 'El nombre de usuario es obligatorio']
+    required: [true, 'El nombre de usuario es obligatorio'],
+    unique: true
   },
   password: {
     type: String,
@@ -42,5 +44,7 @@ var DoctorSchema = new Schema({
     }
   }
 });
+
+DoctorSchema.plugin(uniqueValidator, { message: 'El {PATH} ya se encuentra en uso'});
 
 mongoose.model('Doctor', DoctorSchema);
