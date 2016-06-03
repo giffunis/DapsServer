@@ -4,3 +4,20 @@ exports.new = function (req, res){
   req.session.errors = {};
   res.render('pages/login', {errors: errors});
 };
+
+exports.create = function (req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+  var doctorController = require('./doctor');
+  doctorController.autenticar(username, password, function (error, user) {
+    if (error) {
+      req.session.errors = [{"message": 'Se ha producido un error: ' + error}];
+      res.redirect('/login');
+      return;
+    }
+    req.session.user = {id: user.id, username: user.username};
+    console.log("el usuario se ha validado correctamente");
+    // res.redirect(req.session.redir.toString());
+    res.redirect('/doctor/');
+  });
+};
