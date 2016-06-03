@@ -6,5 +6,7 @@ var doctorController = require('../controllers/doctor');
 doctorRouter.get('/new', doctorController.new);
 // POST '/new'
 doctorRouter.post('/new', doctorController.create);
+// POST '/'
+doctorRouter.get('/', doctorController.show);
 
 module.exports = doctorRouter;
