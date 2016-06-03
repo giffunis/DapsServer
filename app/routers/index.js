@@ -9,5 +9,7 @@ router.get('/', homeController.home);
 router.get('/login', sessionController.new);
 // login POST
 router.post('/login', sessionController.create);
+// logout
+router.get('/logout', sessionController.destroy);
 
 module.exports = router;
