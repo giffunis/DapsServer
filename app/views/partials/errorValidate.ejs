@@ -1,4 +1,4 @@
-<% if(errors.length) { %>
+<% if(errors.length || Object.keys(errors).length) { %>
   <span id="ErrorMsgs">
     Corregir errores: <br>
     <% for(var i in errors){ %>
