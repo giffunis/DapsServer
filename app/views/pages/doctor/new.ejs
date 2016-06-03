@@ -20,19 +20,19 @@
                       <form role="form" method="post" action="/doctor/new">
                           <fieldset>
                               <div class="form-group">
-                                  <label for="doctor[username]">Username</label>
+                                  <label for="doctor[username]">Username*</label>
                                   <input class="form-control" id="username"  name="doctor[username]" value="<%= doctor.username %>" autofocus required>
                               </div>
                               <div class="form-group">
-                                <label for="doctor[password]">Contraseña</label>
+                                <label for="doctor[password]">Contraseña*</label>
                                   <input class="form-control" name="doctor[password]" type="password" required>
                               </div>
                               <div class="form-group">
-                                <label for="doctor[name_and_username]">Nombre y apellidos</label>
+                                <label for="doctor[name_and_username]">Nombre y apellidos*</label>
                                 <input type="text" class="form-control" name="doctor[name_and_surname]" value="<%= doctor.name_and_surname %>" required>
                               </div>
                               <div class="form-group">
-                                <label for="doctor[colegiado]">Nº de colegiado</label>
+                                <label for="doctor[colegiado]">Nº de colegiado*</label>
                                 <input type="number" class="form-control" name="doctor[colegiado]" value="<%= doctor.colegiado %>" required>
                               </div>
                               <div class="form-group">
@@ -40,7 +40,7 @@
                                 <input type="text" class="form-control" name="doctor[especialidad]" value="<%= doctor.especialidad %>">
                               </div>
                               <div class="form-group">
-                                <label for="doctor[email]">Email</label>
+                                <label for="doctor[email]">Email*</label>
                                 <input type="email" class="form-control" name="doctor[email]" value="<%= doctor.email %>" required>
                               </div>
                               <div class="form-group">
@@ -48,6 +48,7 @@
                                 <input type="number" class="form-control" name="doctor[mobile]" value="<%= doctor.mobile %>">
                               </div>
                               <!-- Change this to a button or input when using this as a form -->
+                              <p>Los campos con * son obligatorios.</p>
                               <button type="submit" name="commit" class="btn btn-success">Registrar</button>
                           </fieldset>
                       </form>
