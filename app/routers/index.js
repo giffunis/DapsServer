@@ -10,6 +10,6 @@ router.get('/login', sessionController.new);
 // login POST
 router.post('/login', sessionController.create);
 // logout
-router.get('/logout', sessionController.destroy);
+router.get('/logout', sessionController.loginRequired, sessionController.destroy);
 
 module.exports = router;
