@@ -31,9 +31,7 @@ var DoctorSchema = new Schema({
     required: [true, 'Falta rellenar el campo: email']
   },
   mobile: {
-    type: Number,
-    min: [9, 'El formato es: xxx-xx-xx-xx, sin guiones'],
-    max: [9, 'El formato es: xxx-xx-xx-xx, sin guiones']
+    type: Number
   }
 });
 

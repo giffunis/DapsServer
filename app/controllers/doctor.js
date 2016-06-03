@@ -21,7 +21,12 @@ exports.new = function (req, res) {
 exports.create = function(req, res, next) {
   console.log('función: doctor.create');
   var doctor = new Doctor(req.body.doctor);
-  var error = doctor.validateSync();
-  var errors = error.errors;
-  res.render('pages/doctor/new', {doctor: doctor, errors: errors});
+
+  doctor.save(function(err){
+    if(err){
+        res.render('pages/doctor/new', {doctor: doctor, errors: err.errors});
+    } else {
+      res.redirect('/login');
+    }
+  });
 };
