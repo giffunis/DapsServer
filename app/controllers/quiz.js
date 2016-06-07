@@ -8,3 +8,7 @@ db.on('error', function (err) {
 db.on('connect', function () {
     console.log('database connected');
 });
+
+exports.index = function (req, res) {
+  res.render('pages/quiz/index');
+};
