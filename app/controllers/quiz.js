@@ -1,5 +1,7 @@
+var config = require('../../config/config');
 var mongojs = require('mongojs');
-var db = mongojs(config.db, 'quizes');
+var db = mongojs(config.db);
+var quizesCollection = db.collection('quizes');
 
 db.on('error', function (err) {
     console.log('database error', err);
