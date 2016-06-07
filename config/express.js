@@ -14,6 +14,7 @@ module.exports = function(app, config) {
   // routes
   var router = require(config.root + '/app/routers/index');
   var doctorRouter = require(config.root + '/app/routers/doctor');
+  var quizRouter = require(config.root + '/app/routers/quiz');
 
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
@@ -49,6 +50,7 @@ module.exports = function(app, config) {
   //Asignación de las rutas
   app.use('/', router);
   app.use('/doctor/', doctorRouter);
+  app.use('/quiz/', quizRouter);
 
   app.use(function (req, res, next) {
     var err = new Error('Not Found');
