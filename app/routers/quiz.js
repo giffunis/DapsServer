@@ -9,4 +9,6 @@ quizRouter.param('quizId', quizController.load);
 //  GET '/'
 // quizRouter.get('/', sessionController.loginRequired, quizController.index);
 quizRouter.get('/', quizController.index);
+// GET '/:quizId'
+quizRouter.get('/:quizId(\\d+)', quizController.show);
 module.exports = quizRouter;
