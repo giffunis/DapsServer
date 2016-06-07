@@ -1,0 +1,9 @@
+<% if (quizes) { %>
+  <ul>
+    <% for(var i = 0; i < quizes.length; i++){ %>
+      <li> Quiz <%= i + 1 %>: <a href="/quizes/<%= quizes[i].testId %>"><%- quizes[i].testName %></a></li>
+    <% } %>
+  </ul>
+<% } else { %>
+  <div class="alert alert-info" role="alert"> No se encuentran resultados </div>
+<% } %>
