@@ -1,6 +1,6 @@
 var express = require('express');
 var quizRouter = express.Router();
-var quizController = require('../controllers/quizes');
+var quizController = require('../controllers/quiz');
 var sessionController = require('../controllers/session');
 
 //  GET '/'
