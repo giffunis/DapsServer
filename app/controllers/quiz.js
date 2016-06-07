@@ -11,14 +11,14 @@ db.on('connect', function () {
 });
 
 exports.load = function (req, res, next, quizId) {
-  db.quizes.find({ _id: mongojs.ObjectId(quizId)}, function (err, quiz){
+  db.quizes.findOne({ _id: mongojs.ObjectId(quizId)}, function (err, quiz){
     if (err) {
       next (new Error (err));
-    } else if (quiz){
+    } else if (quiz !== null){
       req.quiz = quiz;
       next();
     } else {
-      next (new Error ('El test no se encuentra disponible en este momento'));
+      next (new Error ('El test no existe'));
     }
   });
 };
@@ -29,7 +29,11 @@ exports.index = function (req, res, next) {
     if(err){
       next(new Error(err));
     } else {
-      res.render('pages/quiz/index', {title: 'Quizes en la base de datos', quizes: docs});
+      res.render('pages/quiz/index', {title: 'Quizes en la base de datos', partial: '../../partials/quiz/quizList', quizes: docs});
     }
   });
+};
+
+exports.show = function (req, res){
+  res.render('pages/quiz/index', {title: 'Detalles del Quiz', partial: '../../partials/quiz/quizShow', quiz: req.quiz});
 };
