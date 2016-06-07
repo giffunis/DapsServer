@@ -11,6 +11,14 @@ db.on('connect', function () {
     console.log('database connected');
 });
 
-exports.index = function (req, res) {
-  res.render('pages/quiz/index');
+exports.index = function (req, res, next) {
+  var quizes;
+  db.quizesCollection.find(function (err, docs) {
+    if(err){
+      next(new Error(err));
+    } else {
+      quizes = docs;
+    }
+  });
+  res.render('pages/quiz/index', {quizes: quizes});
 };
