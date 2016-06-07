@@ -1,7 +1,6 @@
 var config = require('../../config/config');
 var mongojs = require('mongojs');
-var db = mongojs(config.db);
-var quizesCollection = db.collection('quizes');
+var db = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
 
 db.on('error', function (err) {
     console.log('database error', err);
@@ -12,13 +11,12 @@ db.on('connect', function () {
 });
 
 exports.index = function (req, res, next) {
-  var quizes;
-  db.quizesCollection.find(function (err, docs) {
+
+  db.quizes.find(function (err, docs) {
     if(err){
       next(new Error(err));
     } else {
-      quizes = docs;
+      res.render('pages/quiz/index', {quizes: docs});
     }
   });
-  res.render('pages/quiz/index', {quizes: quizes});
 };
