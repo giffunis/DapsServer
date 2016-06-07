@@ -1,3 +1,10 @@
 var mongojs = require('mongojs');
-var db = mongojs(config.db);
-var testCollection = db.collection('quizes');
+var db = mongojs(config.db, 'quizes');
+
+db.on('error', function (err) {
+    console.log('database error', err);
+});
+
+db.on('connect', function () {
+    console.log('database connected');
+});
