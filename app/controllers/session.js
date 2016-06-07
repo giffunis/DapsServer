@@ -24,8 +24,12 @@ exports.create = function (req, res) {
     }
     req.session.user = {id: user.id, username: user.username};
     console.log("el usuario se ha validado correctamente");
-    res.redirect(req.session.redir.toString());
-    // res.redirect('/doctor/');
+    if(req.session.redir.toString() !='/'){
+      res.redirect(req.session.redir.toString());
+    } else {
+        res.redirect('/doctor/');
+    }
+
   });
 };
 
