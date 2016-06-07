@@ -16,7 +16,7 @@ exports.index = function (req, res, next) {
     if(err){
       next(new Error(err));
     } else {
-      res.render('pages/quiz/index', {quizes: docs});
+      res.render('pages/quiz/index', {title: 'Quizes en la base de datos', quizes: docs});
     }
   });
 };
