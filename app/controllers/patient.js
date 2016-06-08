@@ -16,7 +16,7 @@ exports.new = function (req, res) {
   //   mobile: null
   // });
 
-  res.render('pages/doctor/new', {doctor: doctor, errors: errors});
+  res.render('pages/patient/new', { errors: errors});
 };
 //
 // exports.create = function(req, res, next) {
