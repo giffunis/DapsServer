@@ -15,6 +15,7 @@ module.exports = function(app, config) {
   var router = require(config.root + '/app/routers/index');
   var doctorRouter = require(config.root + '/app/routers/doctor');
   var quizRouter = require(config.root + '/app/routers/quiz');
+  var patientRouter = require(config.root + '/app/routers/patient');
 
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
@@ -51,6 +52,7 @@ module.exports = function(app, config) {
   app.use('/', router);
   app.use('/doctor/', doctorRouter);
   app.use('/quiz/', quizRouter);
+  app.use('/patient/', patientRouter);
 
   app.use(function (req, res, next) {
     var err = new Error('Not Found');
