@@ -5,7 +5,7 @@ var sessionController = require('../controllers/session');
 
 
 //  GET '/new'
-quizRouter.get('/new', sessionController.loginRequired, patientController.new);
+patientRouter.get('/new', sessionController.loginRequired, patientController.new);
 
 
 
