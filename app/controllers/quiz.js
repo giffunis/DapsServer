@@ -37,3 +37,7 @@ exports.index = function (req, res, next) {
 exports.show = function (req, res){
   res.render('pages/quiz/index', {title: 'Detalles del Quiz', partial: '../../partials/quiz/quizShow', quiz: req.quiz});
 };
+
+exports.getUpload = function (req, res) {
+  res.render('pages/quiz/index', {title: 'Subir un nuevo test', partial: '../../partials/quiz/quizUpload'});
+};
