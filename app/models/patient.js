@@ -64,6 +64,12 @@ var PatientSchema = new Schema({
     type: Boolean,
     required: [true, 'El {PATH} es obligatorio']
   },
+  quizToDo: {
+    type: Array
+  },
+  finishedQuiz: {
+    type: Array
+  }
 });
 
 PatientSchema.plugin(uniqueValidator, {message: 'El {PATH} ya se encuentra en uso'});
