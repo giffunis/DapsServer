@@ -4,16 +4,27 @@
     <% include ../../partials/head %>
   </head>
   <body>
+    <div id="wrapper">
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-2">
-        <% include ../../partials/patient/new_patient_form %>
+      <% include ../../partials/nav %>
+
+      <!-- Page Content -->
+      <div id="page-wrapper">
+          <div class="container-fluid">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <% include ../../partials/patient/new_patient_form %>
+                  </div>
+                  <!-- /.col-lg-12 -->
+              </div>
+              <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
       </div>
+      <!-- /#page-wrapper -->
+
     </div>
-  </div>
+    <!-- /#wrapper -->
 
-
-    <% include ../../partials/scripts_footer %>
   </body>
 </html>
