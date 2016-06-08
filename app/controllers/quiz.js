@@ -53,7 +53,15 @@ exports.postUpload = function (req, res, next){
       console.log('Multen: Archivo subido sin errors');
       console.log('Ruta completa al archivo: ' + req.file.path);
       jsonfile.readFile(req.file.path, function(err, obj) {
-        db.quizes.insert(obj);
+        db.quizes.insert(obj, function (err) {
+          if(err){
+            console.log('Error: No se ha podido guardar el documento en la bd');
+            res.send('Se ha producido un error con la BBDD');
+          } else {
+            console.log('Correct: El documento se ha almacenado correctamente en la bd');
+            res.send('Documento almacenado en la bd');
+          }
+        });
       });
     }
   });
