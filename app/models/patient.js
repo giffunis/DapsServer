@@ -65,16 +65,16 @@ var PatientSchema = new Schema({
     required: [true, 'El {PATH} es obligatorio']
   },
   quizToDo: {
-    type: Array
+    type: [Number]
   },
   finishedQuiz: {
-    type: Array
+    type: [Number]
   },
   heartBeatDataQueue: {
-    type: Array
+    type: [Number]
   },
   activityDataQueue: {
-    type: Array
+    type: [Number]
   }
 });
 
