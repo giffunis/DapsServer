@@ -53,7 +53,7 @@ exports.postUpload = function (req, res, next){
       console.log('Multen: Archivo subido sin errors');
       console.log('Ruta completa al archivo: ' + req.file.path);
       jsonfile.readFile(req.file.path, function(err, obj) {
-        res.json(obj);
+        db.quizes.insert(obj);
       });
     }
   });
