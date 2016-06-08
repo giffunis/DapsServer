@@ -21,6 +21,7 @@ var PatientSchema = new Schema({
       validator: function(dni){
         return /([a-z,A-Z]{1}\d{7}[a-z,A-Z]{1})|(\d{8}[a-z,A-Z]{1})/.test(dni);
       }
+    }
   },
   sex: {
     type: String,
