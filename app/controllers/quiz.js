@@ -50,9 +50,7 @@ exports.postUpload = function (req, res, next){
       next(new Error(err));
     } else {
     console.log('Multen: Archivo subido sin errors');
-
+      
     }
   });
-
-
 };
