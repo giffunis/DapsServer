@@ -12,5 +12,6 @@ quizRouter.get('/', sessionController.loginRequired, quizController.index);
 quizRouter.get('/:quizId([a-z0-9]{24})', sessionController.loginRequired, quizController.show);
 // Get '/upload'
 quizRouter.get('/upload', sessionController.loginRequired, quizController.getUpload);
-
+// POST'/upload'
+quizRouter.post('/upload', sessionController.loginRequired, quizController.postUpload);
 module.exports = quizRouter;
