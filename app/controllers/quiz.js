@@ -2,7 +2,7 @@ var config = require('../../config/config');
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
 var multer = require('multer');
-var upload = multer({ dest: '../../public/uploads'}).single('quizJsonFile');
+var upload = multer({ dest: 'public/uploads'}).single('quizJsonFile');
 
 db.on('error', function (err) {
     console.log('database error', err);
@@ -49,7 +49,8 @@ exports.postUpload = function (req, res, next){
     if (err) {
       next(new Error(err));
     } else {
-      res.send(res.file.filename);
+    console.log('Multen: Archivo subido sin errors');
+
     }
   });
 
