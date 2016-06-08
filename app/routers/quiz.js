@@ -2,7 +2,8 @@ var express = require('express');
 var quizRouter = express.Router();
 var quizController = require('../controllers/quiz');
 var sessionController = require('../controllers/session');
-
+var multer = require('multer');
+var upload = multer({ dest: '../../public/uploads'});
 // Autoloads
 quizRouter.param('quizId', quizController.load);
 
@@ -13,5 +14,5 @@ quizRouter.get('/:quizId([a-z0-9]{24})', sessionController.loginRequired, quizCo
 // Get '/upload'
 quizRouter.get('/upload', sessionController.loginRequired, quizController.getUpload);
 // POST'/upload'
-quizRouter.post('/upload', sessionController.loginRequired, quizController.postUpload);
+quizRouter.post('/upload', sessionController.loginRequired, upload.single('quizJsonFile'), quizController.postUpload);
 module.exports = quizRouter;

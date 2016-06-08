@@ -1,8 +1,7 @@
 var config = require('../../config/config');
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
-var multer = require('multer');
-var uploadQuiz = multer({ dest: config.root + '/public/uploads'});
+
 
 db.on('error', function (err) {
     console.log('database error', err);
@@ -42,4 +41,9 @@ exports.show = function (req, res){
 
 exports.getUpload = function (req, res) {
   res.render('pages/quiz/index', {title: 'Subir un nuevo test', partial: '../../partials/quiz/quizUpload'});
+};
+
+exports.postUpload = function (req, res){
+  console.log(req.file.filename);
+  res.send("aaaaaaaayyy");
 };
