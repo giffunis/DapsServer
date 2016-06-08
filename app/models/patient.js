@@ -69,6 +69,12 @@ var PatientSchema = new Schema({
   },
   finishedQuiz: {
     type: Array
+  },
+  heartBeatDataQueue: {
+    type: Array
+  },
+  activityDataQueue: {
+    type: Array
   }
 });
 
