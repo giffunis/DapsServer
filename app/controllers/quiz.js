@@ -1,6 +1,8 @@
 var config = require('../../config/config');
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
+var multer = require('multer');
+var uploadQuiz = multer({ dest: config.root + '/public/uploads'});
 
 db.on('error', function (err) {
     console.log('database error', err);
