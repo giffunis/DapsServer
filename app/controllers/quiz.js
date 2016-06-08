@@ -50,8 +50,11 @@ exports.postUpload = function (req, res, next){
     if (err) {
       next(new Error(err));
     } else {
-    console.log('Multen: Archivo subido sin errors');
-    console.log('Ruta completa al archivo: ' + req.file.path);
+      console.log('Multen: Archivo subido sin errors');
+      console.log('Ruta completa al archivo: ' + req.file.path);
+      jsonfile.readFile(req.file.path, function(err, obj) {
+        res.json(obj);
+      });
     }
   });
 };
