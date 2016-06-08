@@ -2,3 +2,9 @@
   <input type="file" name="quizJsonFile"/>
   <input type="submit" name="submit">
 </form>
+
+<% include ../errorValidate %>
+
+<% if (message) { %>
+  <div class="alert alert-info" role="alert"> <%- message %> </div>
+<% } %>

@@ -42,7 +42,7 @@ exports.show = function (req, res){
 };
 
 exports.getUpload = function (req, res) {
-  res.render('pages/quiz/index', {title: 'Subir un nuevo test', partial: '../../partials/quiz/quizUpload'});
+  res.render('pages/quiz/index', {title: 'Subir un nuevo test', partial: '../../partials/quiz/quizUpload', message: null, errors: []});
 };
 
 exports.postUpload = function (req, res, next){
@@ -50,19 +50,24 @@ exports.postUpload = function (req, res, next){
     if (err) {
       next(new Error(err));
     } else {
-      console.log('Multen: Archivo subido sin errors');
-      console.log('Ruta completa al archivo: ' + req.file.path);
-      jsonfile.readFile(req.file.path, function(err, obj) {
-        db.quizes.insert(obj, function (err) {
-          if(err){
-            console.log('Error: No se ha podido guardar el documento en la bd');
-            res.send('Se ha producido un error con la BBDD');
-          } else {
-            console.log('Correct: El documento se ha almacenado correctamente en la bd');
-            res.send('Documento almacenado en la bd');
-          }
+      if(req.file){
+        console.log('Multen: Archivo subido sin errors');
+        console.log('Ruta completa al archivo: ' + req.file.path);
+        jsonfile.readFile(req.file.path, function(err, obj) {
+          db.quizes.insert(obj, function (err) {
+            if(err){
+              console.log('Error: No se ha podido guardar el documento en la bd');
+              res.render('pages/quiz/index', {title: 'Subir un nuevo test', partial: '../../partials/quiz/quizUpload', message: null, errors: err.errors});
+            } else {
+              console.log('Correct: El documento se ha almacenado correctamente en la bd');
+              res.render('pages/quiz/index', {title: 'Subir un nuevo test', partial: '../../partials/quiz/quizUpload', message: 'Documento almacenado y volcado en la BBDD',errors: []});
+
+            }
+          });
         });
-      });
+      } else {
+        res.render('pages/quiz/index', {title: 'Subir un nuevo test', partial: '../../partials/quiz/quizUpload', message: 'Debes elegir un archivo.json',errors: []});
+      }
     }
   });
 };
