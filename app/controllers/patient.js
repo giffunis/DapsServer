@@ -18,7 +18,8 @@ exports.new = function (req, res) {
     personTlf: null,
     smoker: false,
     memoryProblems: false,
-    heartCondition: false
+    heartCondition: false,
+    doctor: null,
   });
 
   res.render('pages/patient/new', { patient: patient, errors: errors});
@@ -47,7 +48,7 @@ exports.index = function(req, res, next) {
     if (err) {
       next(new Error(err));
     } else {
-      res.status(200).send(patients);      
+      res.status(200).send(patients);
     }
   });
 };
