@@ -1,0 +1,9 @@
+<% if (patients) { %>
+  <ul>
+    <% for(var i = 0; i < patients.length; i++){ %>
+      <li> Paciente: <%= i + 1 %>: <a href="/patient/<%= patients[i]._id %>"><%- patients[i].name %></a></li>
+    <% } %>
+  </ul>
+<% } else { %>
+  <div class="alert alert-info" role="alert"> No se encuentran resultados </div>
+<% } %>
