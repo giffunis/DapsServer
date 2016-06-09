@@ -8,7 +8,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[name]">Nombre</label>
   <div class="col-md-4">
-  <input id="name" name="patient[name]" placeholder="Nombre" value="<%= patient[name] %>" class="form-control input-md" required type="text">
+  <input id="name" name="patient[name]" placeholder="Nombre" value="<%= patient.name %>" class="form-control input-md" required type="text">
 
   </div>
 </div>
@@ -17,7 +17,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[lastName]">Apellidos</label>
   <div class="col-md-4">
-  <input id="lastName" name="patient[lastName]" placeholder="Apellidos" value="<%= patient[lastName] %>" class="form-control input-md" required type="text">
+  <input id="lastName" name="patient[lastName]" placeholder="Apellidos" value="<%= patient.lastName %>" class="form-control input-md" required type="text">
 
   </div>
 </div>
@@ -26,7 +26,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[birthDate]">Fecha de nacimiento</label>
   <div class="col-md-4">
-  <input id="birthDate" name="birthDate" placeholder="10/03/1993" value="<%= patient[birthDate] %>" class="form-control input-md" required type="date">
+  <input id="birthDate" name="birthDate" placeholder="10/03/1993" value="<%= patient.birthDate %>" class="form-control input-md" required type="date">
 
   </div>
 </div>
@@ -54,7 +54,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="dni">DNI o NIE</label>
   <div class="col-md-4">
-  <input id="dni" name="patient[dni]" placeholder="00000000V" value="<%= patient[dni] %>"class="form-control input-md" required type="text">
+  <input id="dni" name="patient[dni]" placeholder="00000000V" value="<%= patient.dni %>"class="form-control input-md" required type="text">
 
   </div>
 </div>
@@ -72,7 +72,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[mobileNumber]">Tlf de contacto</label>
   <div class="col-md-4">
-  <input id="mobileNumber" name="patient[mobileNumber]" placeholder="Ej: 677999999" value="<%= patient[mobileNumber] %>" class="form-control input-md" type="text">
+  <input id="mobileNumber" name="patient[mobileNumber]" placeholder="Ej: 677-99-99-99" value="<%= patient.mobileNumber %>" class="form-control input-md" type="text">
 
   </div>
 </div>
@@ -81,7 +81,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[contactPerson]">Persona de contacto</label>
   <div class="col-md-4">
-  <input id="contactPerson" name="patient[contactPerson]" value="<%= patient[contactPerson] %>" placeholder="Familiar, etc." class="form-control input-md" type="text">
+  <input id="contactPerson" name="patient[contactPerson]" value="<%= patient.contactPerson %>" placeholder="Familiar, etc." class="form-control input-md" type="text">
 
   </div>
 </div>
@@ -90,7 +90,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[personTlf]">Tlf de la persona de contacto</label>
   <div class="col-md-4">
-  <input id="personTlf" name="patient[personTlf]" placeholder="677999999" value="<%= patient[personTlf] %>" class="form-control input-md" type="text">
+  <input id="personTlf" name="patient[personTlf]" placeholder="Ej: 677 99 99 99" value="<%= patient.personTlf %>" class="form-control input-md" type="text">
 
   </div>
 </div>
