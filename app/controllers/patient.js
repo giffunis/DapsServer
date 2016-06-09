@@ -6,15 +6,24 @@ exports.new = function (req, res) {
   var errors = req.session.errors || {};
   req.session.errors = {};
 
-  // var doctor = new Doctor({
-  //   username: "",
-  //   password: "",
-  //   name_and_surname: "",
-  //   colegiado: null,
-  //   especialidad: "",
-  //   email: "",
-  //   mobile: null
-  // });
+  var patient = new Patient({
+    name: "",
+    lastName: "",
+    dni: "",
+    password: "",
+    sex: "",
+    birthDate: "",
+    mobileNumber: null,
+    contactPerson: null,
+    personTlf: null,
+    smoker: false,
+    memoryProblems: false,
+    heartCondition: false,
+    quizToDo: [],
+    finishedQuiz: [],
+    heartBeatDataQueue: [],
+    activityDataQueue: []
+  });
 
   res.render('pages/patient/new', { errors: errors});
 };
