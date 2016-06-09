@@ -1,16 +1,52 @@
 <% if (patient) { %>
-  <p><strong>Nombre:</strong> <%= patient.name %> </p>
-  <p><strong>Apellidos:</strong> <%= patient.lastName %> </p>
-  <p><strong>DNI/NIE:</strong> <%= patient.dni %> </p>
-  <p><strong>Sexo:</strong> <%= patient.sex %> </p>
-  <p><strong>Fecha de nacimiento:</strong> <%= patient.birthDate %> </p>
-  <p><strong>Número de teléfono:</strong> <%= patient.mobileNumber %> </p>
-  <p><strong>Persona de contacto en caso de emergencia:</strong> <%= patient.contactPerson %> </p>
-  <p><strong>Tlf de la persona de contacto:</strong> <%= patient.personTlf %> </p>
-  <p><strong>Fumador:</strong> <%= patient.smoker %> </p>
-  <p><strong>Problemas de memoria:</strong> <%= patient.memoryProblems %> </p>
-  <p><strong>Problemas cardiacos:</strong> <%= patient.heartCondition %> </p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="panel panel-info">
+          <div class="panel-heading">
+              Datos personales
+          </div>
+          <div class="panel-body">
+            <p><strong>Nombre:</strong> <%= patient.name %> </p>
+            <p><strong>Apellidos:</strong> <%= patient.lastName %> </p>
+            <p><strong>DNI/NIE:</strong> <%= patient.dni %> </p>
+            <p><strong>Fecha de nacimiento:</strong> <%= patient.birthDate %> </p>
+          </div>
+          <div class="panel-footer">
+              Daps
+          </div>
+      </div>
+    </div>
+    <!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <div class="panel panel-warning">
+          <div class="panel-heading">
+              Datos de contacto
+          </div>
+          <div class="panel-body">
+            <p><strong>Número de teléfono:</strong> <%= patient.mobileNumber %> </p>
+            <p><strong>Persona de contacto en caso de emergencia:</strong> <%= patient.contactPerson %> </p>
+            <p><strong>Tlf de la persona de contacto:</strong> <%= patient.personTlf %> </p>
+          </div>
+          <div class="panel-footer">
+              Daps
+          </div>
+      </div>
+  </div>
+  <!-- /.col-lg-4 -->
+  </div>
   
+  <div class="row">
+    <div class="col-md-3">
+      <p><strong>Sexo:</strong> <%= patient.sex %> </p>
+      <p><strong>Fumador:</strong> <%= patient.smoker %> </p>
+      <p><strong>Problemas de memoria:</strong> <%= patient.memoryProblems %> </p>
+      <p><strong>Problemas cardiacos:</strong> <%= patient.heartCondition %> </p>
+    </div>
+  </div>
+</div>
+
+
 
 <% } else { %>
   <div class="alert alert-info" role="alert"> Ha habido un error. Comuníquese con su administrador de la base de datos </div>
