@@ -23,6 +23,10 @@ var PatientSchema = new Schema({
       }
     }
   },
+  password: {
+    type: String,
+    require: [true, 'El {PATH} es obligatorio']
+  },
   sex: {
     type: String,
     required: [true, 'El {PATH} es obligatorio']
