@@ -11,18 +11,21 @@
                 <th>Link</th>
             </tr>
         </thead>
-        <tbody>
-            <tr class="gradeA">
-                <td class="center"><%= quizes[i].date %></td>
-                <td class="center"><%= quizes[i].quizName %></td>
-                <td class="center"><%= quizes[i].nQuestions %></td>
-                <td class="center"><%= quizes[i].correctAnswers %></td>
-                <td class="center"><%= quizes[i].mistakes %></td>
-                <td class="center"><%= quizes[i].time %></td>
-                <td class="center"><a href="#">quizes[i]._id</a></td>
-            </tr>
-
-        </tbody>
+        <% if (quizes) { %>
+          <tbody>
+            <% for (var i = 0; i < quizes.length; i++) { %>
+              <tr class="gradeA">
+                  <td class="center"><%= quizes[i].date %></td>
+                  <td class="center"><%= quizes[i].quizName %></td>
+                  <td class="center"><%= quizes[i].nQuestions %></td>
+                  <td class="center"><%= quizes[i].correctAnswers %></td>
+                  <td class="center"><%= quizes[i].mistakes %></td>
+                  <td class="center"><%= quizes[i].time %></td>
+                  <td class="center"><a href="/patient/<%= patient._id %>/quiz/<%= quizes[i]._id %>">ver</a></td>
+              </tr>
+            <% } %>
+          </tbody>
+        <% } %>
     </table>
 </div>
 <!-- /.table-responsive -->
