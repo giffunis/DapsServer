@@ -66,7 +66,7 @@ exports.index = function(req, res, next) {
       next(new Error(err));
     } else {
       Doctor.populate(patients, {path: 'doctor'},function(err, patients){
-            res.render('pages/patient/index', { title: 'Pacientes', partial: '../../partials/patient/list', patients: patients});
+            res.render('pages/patient/index', { title: 'Pacientes', patients: patients});
         });
     }
   });
@@ -75,7 +75,3 @@ exports.index = function(req, res, next) {
 exports.show = function (req, res){
   res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient});
 };
-
-// Doctor.populate(patients, {path: 'doctor'},function(err, patients){
-//       res.status(200).send(patients);
-//   });
