@@ -7,7 +7,9 @@ exports.load = function (req, res, next, patientId) {
     if (err) {
       next (new Error (err));
     } else if (patient !== null){
-      req.patient = patient;
+      Doctor.populate(patient, {path: 'doctor'},function(err, patient){
+        req.patient = patient;
+      });
       next();
     } else {
       next (new Error ('El paciente no existe'));
@@ -69,9 +71,8 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function (req, res){
-  Doctor.populate(patients, {path: 'doctor'},function(err, patients){
-        res.render('pages/patient/index', { title: 'Datos del paciente', partial: '../../partials/patient/show', patient: req.patient});
-    });
+  // res.render('pages/patient/index', { title: 'Datos del paciente', partial: '../../partials/patient/show', patient: req.patient});
+  res.status(200).send(req.patient);
 };
 
 // Doctor.populate(patients, {path: 'doctor'},function(err, patients){
