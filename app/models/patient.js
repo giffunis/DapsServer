@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var validators = require('mongoose-validators');
 var uniqueValidator = require('mongoose-unique-validator');
+var Doctor = mongoose.mode('Doctor');
 
 
 var PatientSchema = new Schema({
@@ -80,7 +81,8 @@ var PatientSchema = new Schema({
   },
   activityDataQueue: {
     type: [Number]
-  }
+  },
+  doctor: { type: Schema.ObjectId, ref: "Doctor"}
 });
 
 PatientSchema.plugin(uniqueValidator, {message: 'El {PATH} ya se encuentra en uso'});
