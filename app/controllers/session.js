@@ -22,7 +22,7 @@ exports.create = function (req, res) {
       res.redirect('/login');
       return;
     }
-    req.session.user = {id: user._id, username: user.username};
+    req.session.user = {_id: user._id, username: user.username};
     console.log("el usuario se ha validado correctamente");
 
     if(req.session.redir){

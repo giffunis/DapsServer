@@ -80,6 +80,9 @@ var PatientSchema = new Schema({
   },
   activityDataQueue: {
     type: [Number]
+  },
+  doctors: {
+    type: [String]
   }
 });
 
