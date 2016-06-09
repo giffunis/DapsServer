@@ -70,17 +70,17 @@ var PatientSchema = new Schema({
     type: Boolean,
     required: [true, 'El {PATH} es obligatorio']
   },
-  quizToDo: {
-    type: [Number],
+  unSolvedQuizes: {
+    type: [Schema.ObjectId]
   },
-  finishedQuiz: {
-    type: [Number],
+  solvedQuizes: {
+    type: [Schema.ObjectId]
   },
   heartBeatDataQueue: {
-    type: [Number]
+    type: [Schema.ObjectId]
   },
   activityDataQueue: {
-    type: [Number]
+    type: [Schema.ObjectId]
   },
   doctor: { type: Schema.ObjectId, ref: "Doctor"}
 });
