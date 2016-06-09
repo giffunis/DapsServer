@@ -10,7 +10,7 @@ patientRouter.param('patientId', patientController.load);
 patientRouter.get('/new', sessionController.loginRequired, patientController.new);
 patientRouter.post('/new', sessionController.loginRequired, patientController.create);
 patientRouter.get('/', sessionController.loginRequired, patientController.index);
-quizRouter.get('/:patientId([a-z0-9]{24})', sessionController.loginRequired, patientController.show);
+patientRouter.get('/:patientId([a-z0-9]{24})', sessionController.loginRequired, patientController.show);
 
 
 
