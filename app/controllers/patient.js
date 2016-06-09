@@ -18,11 +18,7 @@ exports.new = function (req, res) {
     personTlf: null,
     smoker: false,
     memoryProblems: false,
-    heartCondition: false,
-    quizToDo: [],
-    finishedQuiz: [],
-    heartBeatDataQueue: [],
-    activityDataQueue: []
+    heartCondition: false
   });
 
   res.render('pages/patient/new', { patient: patient, errors: errors});
