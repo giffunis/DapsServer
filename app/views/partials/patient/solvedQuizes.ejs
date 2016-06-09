@@ -11,17 +11,17 @@
                 <th>Link</th>
             </tr>
         </thead>
-        <% if (quizes) { %>
+        <% if (solvedQuizes) { %>
           <tbody>
-            <% for (var i = 0; i < quizes.length; i++) { %>
+            <% for (var i = 0; i < solvedQuizes.length; i++) { %>
               <tr class="gradeA">
-                  <td class="center"><%= quizes[i].date %></td>
-                  <td class="center"><%= quizes[i].quizName %></td>
-                  <td class="center"><%= quizes[i].nQuestions %></td>
-                  <td class="center"><%= quizes[i].correctAnswers %></td>
-                  <td class="center"><%= quizes[i].mistakes %></td>
-                  <td class="center"><%= quizes[i].time %></td>
-                  <td class="center"><a href="/patient/<%= patient._id %>/quiz/<%= quizes[i]._id %>">ver</a></td>
+                  <td class="center"><%= solvedQuizes[i].date %></td>
+                  <td class="center"><%= solvedQuizes[i].quizName %></td>
+                  <td class="center"><%= solvedQuizes[i].nQuestions %></td>
+                  <td class="center"><%= solvedQuizes[i].correctAnswers %></td>
+                  <td class="center"><%= solvedQuizes[i].mistakes %></td>
+                  <td class="center"><%= solvedQuizes[i].time %></td>
+                  <td class="center"><a href="/patient/<%= patient._id %>/quiz/<%= solvedQuizes[i]._id %>">ver</a></td>
               </tr>
             <% } %>
           </tbody>
