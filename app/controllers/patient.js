@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Patient = mongoose.model('Patient');
+var Doctor = mongoose.model('Doctor');
 
 
 exports.new = function (req, res) {
@@ -48,7 +49,9 @@ exports.index = function(req, res, next) {
     if (err) {
       next(new Error(err));
     } else {
-      res.status(200).send(patients);
+      Doctor.populate(patients, {path: 'doctor'},function(err, patients){
+            res.status(200).send(patients);
+        });
     }
   });
 };
