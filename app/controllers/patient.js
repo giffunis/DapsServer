@@ -39,7 +39,7 @@ exports.new = function (req, res) {
     doctor: null,
   });
 
-  res.render('pages/patient/index', { title: 'Crear un paciente', partial: '../../partials/patient/new_patient_form', patient: patient, errors: errors});
+  res.render('pages/patient/new', { title: 'Crear un paciente', patient: patient, errors: errors});
 };
 
 
@@ -53,7 +53,7 @@ exports.create = function(req, res, next) {
         for(var i in err.errors){
           console.log(err.errors[i].message);
         }
-        res.render('pages/patient/index', { title: 'Crear un paciente', partial: '../../partials/patient/new_patient_form', patient: patient, errors: err.errors});
+        res.render('pages/patient/new', { title: 'Crear un paciente', patient: patient, errors: err.errors});
     } else {
       res.send('Usuario creado correctamente');
     }
