@@ -1,0 +1,25 @@
+<div class="dataTable_wrapper">
+    <table class="table table-striped table-bordered table-hover" id="unSolvedQuizes">
+        <thead>
+            <tr>
+                <th>Autor</th>
+                <th>Test</th>
+                <th>NºPreguntas</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <% if (unSolvedQuizes) { %>
+          <tbody>
+            <% for (var i = 0; i < unSolvedQuizes.length; i++) { %>
+              <tr class="gradeA">
+                  <td class="center"><%= unSolvedQuizes[i].doctor %></td>
+                  <td class="center"><%= unSolvedQuizes[i].quizName %></td>
+                  <td class="center"><%= unSolvedQuizes[i].nQuestions %></td>
+                  <td class="center"><a href="/quiz/<%= unSolvedQuizes[i]._id %>">ver</a></td>
+              </tr>
+            <% } %>
+          </tbody>
+        <% } %>
+    </table>
+</div>
+<!-- /.table-responsive -->
