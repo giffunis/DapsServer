@@ -73,5 +73,5 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function (req, res){
-  res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null});
+  res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null});
 };
