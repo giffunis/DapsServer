@@ -25,7 +25,7 @@ exports.new = function (req, res) {
     activityDataQueue: []
   });
 
-  res.render('pages/patient/new', { errors: errors});
+  res.render('pages/patient/new', { patient: patient, errors: errors});
 };
 //
 // exports.create = function(req, res, next) {
