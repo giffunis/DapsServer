@@ -10,7 +10,7 @@ exports.load = function (req, res, next, patientId) {
       req.patient = patient;
       next();
     } else {
-      next (new Error ('El test no existe'));
+      next (new Error ('El paciente no existe'));
     }
   });
 };
@@ -66,6 +66,12 @@ exports.index = function(req, res, next) {
         });
     }
   });
+};
+
+exports.show = function (req, res){
+  Doctor.populate(patients, {path: 'doctor'},function(err, patients){
+        res.render('pages/patient/index', { title: 'Datos del paciente', partial: '../../partials/patient/show', patient: req.patient});
+    });
 };
 
 // Doctor.populate(patients, {path: 'doctor'},function(err, patients){
