@@ -2,6 +2,12 @@
 <html>
   <head>
     <% include ../../partials/head %>
+
+    <!-- DataTables CSS -->
+    <link href="/components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="/components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
   </head>
   <body>
     <div id="wrapper">
@@ -25,5 +31,8 @@
 
     <% include ../../partials/scripts_footer %>
 
+    <!-- DataTables JavaScript -->
+    <script src="/components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
   </body>
 </html>
