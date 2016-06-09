@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var validators = require('mongoose-validators');
 var uniqueValidator = require('mongoose-unique-validator');
-var Doctor = mongoose.mode('Doctor');
+var Doctor = mongoose.model('Doctor');
 
 
 var PatientSchema = new Schema({
