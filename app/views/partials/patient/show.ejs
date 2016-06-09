@@ -1,5 +1,5 @@
+
 <% if (patient) { %>
-<div class="container">
   <div class="row">
     <div class="col-lg-4">
       <div class="panel panel-info">
@@ -34,19 +34,24 @@
       </div>
   </div>
   <!-- /.col-lg-4 -->
+  <div class="col-lg-4">
+      <div class="panel panel-green">
+          <div class="panel-heading">
+            Datos clínicos
+          </div>
+          <div class="panel-body">
+            <p><strong>Sexo:</strong> <%= patient.sex %> </p>
+            <p><strong>Fumador:</strong> <%= patient.smoker %> </p>
+            <p><strong>Problemas de memoria:</strong> <%= patient.memoryProblems %> </p>
+            <p><strong>Problemas cardiacos:</strong> <%= patient.heartCondition %> </p>
+          </div>
+          <div class="panel-footer">
+              Daps
+          </div>
+      </div>
   </div>
-  
-  <div class="row">
-    <div class="col-md-3">
-      <p><strong>Sexo:</strong> <%= patient.sex %> </p>
-      <p><strong>Fumador:</strong> <%= patient.smoker %> </p>
-      <p><strong>Problemas de memoria:</strong> <%= patient.memoryProblems %> </p>
-      <p><strong>Problemas cardiacos:</strong> <%= patient.heartCondition %> </p>
-    </div>
-  </div>
+  <!-- /.col-lg-4 -->
 </div>
-
-
 
 <% } else { %>
   <div class="alert alert-info" role="alert"> Ha habido un error. Comuníquese con su administrador de la base de datos </div>
