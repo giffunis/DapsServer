@@ -1,7 +1,16 @@
 <% if (patient) { %>
   <p><strong>Nombre:</strong> <%= patient.name %> </p>
   <p><strong>Apellidos:</strong> <%= patient.lastName %> </p>
-
+  <p><strong>DNI/NIE:</strong> <%= patient.dni %> </p>
+  <p><strong>Sexo:</strong> <%= patient.sex %> </p>
+  <p><strong>Fecha de nacimiento:</strong> <%= patient.birthDate %> </p>
+  <p><strong>Número de teléfono:</strong> <%= patient.mobileNumber %> </p>
+  <p><strong>Persona de contacto en caso de emergencia:</strong> <%= patient.contactPerson %> </p>
+  <p><strong>Tlf de la persona de contacto:</strong> <%= patient.personTlf %> </p>
+  <p><strong>Fumador:</strong> <%= patient.smoker %> </p>
+  <p><strong>Problemas de memoria:</strong> <%= patient.memoryProblems %> </p>
+  <p><strong>Problemas cardiacos:</strong> <%= patient.heartCondition %> </p>
+  
 
 <% } else { %>
   <div class="alert alert-info" role="alert"> Ha habido un error. Comuníquese con su administrador de la base de datos </div>
