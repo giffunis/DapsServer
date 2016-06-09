@@ -12,17 +12,13 @@ exports.new = function (req, res) {
     dni: "",
     password: "",
     sex: "",
-    birthDate: "",
+    birthDate: null,
     mobileNumber: null,
     contactPerson: null,
     personTlf: null,
     smoker: false,
     memoryProblems: false,
     heartCondition: false,
-    quizToDo: [],
-    finishedQuiz: [],
-    heartBeatDataQueue: [],
-    activityDataQueue: []
   });
 
   res.render('pages/patient/new', { patient: patient, errors: errors});
@@ -31,6 +27,7 @@ exports.new = function (req, res) {
 exports.create = function(req, res, next) {
   console.log('función: patient.create');
   var patient = new Patient(req.body.patient);
+  console.log(req.body.patient.birthDate);
 
   patient.save(function(err){
     if(err){

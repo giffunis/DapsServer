@@ -20,7 +20,8 @@ var PatientSchema = new Schema({
     validate: {
       validator: function(dni){
         return /([a-z,A-Z]{1}\d{7}[a-z,A-Z]{1})|(\d{8}[a-z,A-Z]{1})/.test(dni);
-      }
+      },
+      message:'{VALUE} No es un DNI o NIE válido.'
     }
   },
   password: {
@@ -69,10 +70,10 @@ var PatientSchema = new Schema({
     required: [true, 'El {PATH} es obligatorio']
   },
   quizToDo: {
-    type: [Number]
+    type: [Number],
   },
   finishedQuiz: {
-    type: [Number]
+    type: [Number],
   },
   heartBeatDataQueue: {
     type: [Number]

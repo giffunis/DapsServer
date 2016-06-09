@@ -1,3 +1,4 @@
+<% include ../errorValidate %>
 <form class="form-horizontal" method="post">
 <fieldset>
 
@@ -26,7 +27,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[birthDate]">Fecha de nacimiento</label>
   <div class="col-md-4">
-  <input id="birthDate" name="birthDate" placeholder="10/03/1993" value="<%= patient.birthDate %>" class="form-control input-md" required type="date">
+  <input id="birthDate" name="patient[birthDate]" placeholder="10/03/1993" value="<%= patient.birthDate %>" class="form-control input-md" required type="text">
 
   </div>
 </div>
