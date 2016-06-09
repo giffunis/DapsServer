@@ -19,10 +19,15 @@ exports.new = function (req, res) {
     smoker: false,
     memoryProblems: false,
     heartCondition: false,
+    quizToDo: [],
+    finishedQuiz: [],
+    heartBeatDataQueue: [],
+    activityDataQueue: []
   });
 
   res.render('pages/patient/new', { patient: patient, errors: errors});
 };
+
 
 exports.create = function(req, res, next) {
   console.log('función: patient.create');

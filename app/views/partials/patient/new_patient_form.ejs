@@ -73,7 +73,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[mobileNumber]">Tlf de contacto</label>
   <div class="col-md-4">
-  <input id="mobileNumber" name="patient[mobileNumber]" placeholder="Ej: 677-99-99-99" value="<%= patient.mobileNumber %>" class="form-control input-md" type="text">
+  <input id="mobileNumber" name="patient[mobileNumber]" placeholder="Ej: 677-99-99-99" value="<%= patient.mobileNumber %>" class="form-control input-md" type="text" required>
 
   </div>
 </div>
@@ -82,7 +82,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[contactPerson]">Persona de contacto</label>
   <div class="col-md-4">
-  <input id="contactPerson" name="patient[contactPerson]" value="<%= patient.contactPerson %>" placeholder="Familiar, etc." class="form-control input-md" type="text">
+  <input id="contactPerson" name="patient[contactPerson]" value="<%= patient.contactPerson %>" placeholder="Familiar, etc." class="form-control input-md" type="text" required>
 
   </div>
 </div>
@@ -91,7 +91,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="patient[personTlf]">Tlf de la persona de contacto</label>
   <div class="col-md-4">
-  <input id="personTlf" name="patient[personTlf]" placeholder="Ej: 677 99 99 99" value="<%= patient.personTlf %>" class="form-control input-md" type="text">
+  <input id="personTlf" name="patient[personTlf]" placeholder="Ej: 677 99 99 99" value="<%= patient.personTlf %>" class="form-control input-md" type="text" required>
 
   </div>
 </div>
