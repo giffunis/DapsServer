@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Patient = mongoose.model('Patient');
 var Doctor = mongoose.model('Doctor');
+var mongojs = require('mongojs');
+var db = mongojs('mongodb://localhost/dapsserver-development', ['patients']);
 
 exports.load = function (req, res, next, patientId) {
   db.patients.findOne({ _id: mongojs.ObjectId(patientId)}, function (err, patient){
@@ -9,8 +11,8 @@ exports.load = function (req, res, next, patientId) {
     } else if (patient !== null){
       Doctor.populate(patient, {path: 'doctor'},function(err, patient){
         req.patient = patient;
+        next();
       });
-      next();
     } else {
       next (new Error ('El paciente no existe'));
     }
