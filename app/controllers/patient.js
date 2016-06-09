@@ -73,7 +73,7 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function (req, res){
-  res.render('pages/patient/index', { title: 'Datos del paciente', partial: '../../partials/patient/show', patient: req.patient});
+  res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient});
 };
 
 // Doctor.populate(patients, {path: 'doctor'},function(err, patients){
