@@ -2,6 +2,18 @@ var mongoose = require('mongoose');
 var Patient = mongoose.model('Patient');
 var Doctor = mongoose.model('Doctor');
 
+exports.load = function (req, res, next, patientId) {
+  db.patients.findOne({ _id: mongojs.ObjectId(patientId)}, function (err, patient){
+    if (err) {
+      next (new Error (err));
+    } else if (patient !== null){
+      req.patient = patient;
+      next();
+    } else {
+      next (new Error ('El test no existe'));
+    }
+  });
+};
 
 exports.new = function (req, res) {
   var errors = req.session.errors || {};
