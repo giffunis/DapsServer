@@ -41,3 +41,13 @@ exports.create = function(req, res, next) {
     }
   });
 };
+
+exports.index = function(req, res, next) {
+  Patient.find({}, function(err, patients){
+    if (err) {
+      next(new Error(err));
+    } else {
+      res.status(200).send(patients);      
+    }
+  });
+};
