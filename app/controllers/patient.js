@@ -50,8 +50,12 @@ exports.index = function(req, res, next) {
       next(new Error(err));
     } else {
       Doctor.populate(patients, {path: 'doctor'},function(err, patients){
-            res.status(200).send(patients);
+            res.render('/pages/patient/index', { title: 'Pacientes', partial: '../../partials/patient/list', patients: patients});
         });
     }
   });
 };
+
+// Doctor.populate(patients, {path: 'doctor'},function(err, patients){
+//       res.status(200).send(patients);
+//   });
