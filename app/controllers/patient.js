@@ -27,19 +27,19 @@ exports.new = function (req, res) {
 
   res.render('pages/patient/new', { patient: patient, errors: errors});
 };
-//
-// exports.create = function(req, res, next) {
-//   console.log('función: doctor.create');
-//   var doctor = new Doctor(req.body.doctor);
-//
-//   doctor.save(function(err){
-//     if(err){
-//         for(var i in err.errors){
-//           console.log(err.errors[i].message);
-//         }
-//         res.render('pages/doctor/new', {doctor: doctor, errors: err.errors});
-//     } else {
-//       res.redirect('/login');
-//     }
-//   });
-// };
+
+exports.create = function(req, res, next) {
+  console.log('función: patient.create');
+  var patient = new Patient(req.body.patient);
+
+  patient.save(function(err){
+    if(err){
+        for(var i in err.errors){
+          console.log(err.errors[i].message);
+        }
+        res.render('pages/patient/new', {patient: patient, errors: err.errors});
+    } else {
+      res.send('Usuario creado correctamente');
+    }
+  });
+};
