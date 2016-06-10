@@ -84,6 +84,15 @@ exports.show = function (req, res){
   });
 };
 
-exports.addQuiz = function(req, res){
-  res.send(req.quiz);
+exports.addQuiz = function(req, res, next){
+  var unSolvedQuizes = req.patient.unSolvedQuizes;
+  unSolvedQuizes.push(req.quiz._id);
+  Patient.update({ '_id': req.patient._id}, {'$set': {'unSolvedQuizes': unSolvedQuizes}}, function(err){
+    if(err){
+      next(new Error(err));
+    } else {
+      res.send("ok");
+    }
+  });
+
 };
