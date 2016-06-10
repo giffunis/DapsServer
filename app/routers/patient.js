@@ -12,7 +12,7 @@ patientRouter.post('/new', sessionController.loginRequired, patientController.cr
 patientRouter.get('/', sessionController.loginRequired, patientController.index);
 patientRouter.get('/:patientId([a-z0-9]{24})', sessionController.loginRequired, patientController.show);
 
-// patientRouter.post('/:patientId([a-z0-9]{24})/quiz/add', sessionController.loginRequired, patientController.quizAdd);
+patientRouter.post('/:patientId([a-z0-9]{24})/quiz/add/:quizId([a-z0-9]{24})', sessionController.loginRequired, patientController.quizAdd);
 
 
 
