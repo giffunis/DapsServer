@@ -2,9 +2,11 @@ var express = require('express');
 var patientRouter = express.Router();
 var patientController = require('../controllers/patient');
 var sessionController = require('../controllers/session');
+var quizController = require('../controllers/quiz');
 
 // Autoloads
 patientRouter.param('patientId', patientController.load);
+patientRouter.param('quizId', quizController.load);
 
 //  GET '/new'
 patientRouter.get('/new', sessionController.loginRequired, patientController.new);

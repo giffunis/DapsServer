@@ -85,5 +85,5 @@ exports.show = function (req, res){
 };
 
 exports.addQuiz = function(req, res){
-  res.send("ok");
+  res.send(req.quiz);
 };
