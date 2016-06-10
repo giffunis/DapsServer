@@ -74,21 +74,21 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function (req, res){
-  // db2.quizes.find(function (err, quizes) {
-  //   if(err){
-  //     next(new Error(err));
-  //   } else {
-  //     req.quizes = quizes;
-  //     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
-  //   }
-  // });
-
-  db2.quizes.find().then(function (quizes){
+  db2.quizes.find(function (err, quizes) {
+    if(err){
+      next(new Error(err));
+    } else {
       req.quizes = quizes;
       res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
-    },function(err){
-      next(new Error(err));
-    });
+    }
+  });
+
+  // db2.quizes.find().then(function (quizes){
+  //     req.quizes = quizes;
+  //     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
+  //   },function(err){
+  //     next(new Error(err));
+  //   });
 };
 
 exports.addQuiz = function(req, res, next){
@@ -98,7 +98,7 @@ exports.addQuiz = function(req, res, next){
     if(err){
       next(new Error(err));
     } else {
-      res.send("ok");
+      res.send("ok, el test ha sido asignado");
     }
   });
 
