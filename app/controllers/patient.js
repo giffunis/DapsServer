@@ -83,3 +83,7 @@ exports.show = function (req, res){
     }
   });
 };
+
+exports.addQuiz = function(req, res){
+  res.send(req.param.quizId);
+};
