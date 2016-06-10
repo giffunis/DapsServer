@@ -3,6 +3,7 @@ var Patient = mongoose.model('Patient');
 var Doctor = mongoose.model('Doctor');
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost/dapsserver-development', ['patients']);
+var db2 = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
 
 exports.load = function (req, res, next, patientId) {
   db.patients.findOne({ _id: mongojs.ObjectId(patientId)}, function (err, patient){
@@ -73,5 +74,12 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function (req, res){
-  res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: null});
+  db2.quizes.find(function (err, quizes) {
+    if(err){
+      next(new Error(err));
+    } else {
+      req.quizes = quizes;
+      res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
+    }
+  });
 };
