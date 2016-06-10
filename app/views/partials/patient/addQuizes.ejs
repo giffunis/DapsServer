@@ -6,6 +6,7 @@
                 <th>Test</th>
                 <th>NºPreguntas</th>
                 <th>Link</th>
+                <th>Añadir al paciente</th>
             </tr>
         </thead>
         <% if (quizes) { %>
@@ -16,6 +17,7 @@
                   <td class="center"><%= quizes[i].quizName %></td>
                   <td class="center"><%= quizes[i].nQuestions %></td>
                   <td class="center"><a href="/quiz/<%= quizes[i]._id %>">ver</a></td>
+                  <td class="center"><a href="/patient/<%= patient._id %>/quiz/add/<%=quizes[i]._id %>">añadir</a></td>
               </tr>
             <% } %>
           </tbody>
