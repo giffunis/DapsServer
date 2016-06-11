@@ -78,23 +78,22 @@ exports.show = function (req, res){
   var usqCont = 0;
   var unSolvedQuizes = [];
 
-  var getOneUnsolvedQuizP = new Promise (function(resolve, reject){
-    db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
-      if(err){
-        reject(err);
-      } else {
-        unSolvedQuizes.push(doc);
-        resolve();
-      }
-    });
-  });
 
   var getAllUnsolvedQuizesP = new Promise(function(resolve,reject){
-    do {
-      getOneUnsolvedQuizP.then(function(doc){
-        usqCont++;
-      },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
-    } while (true);
+
+    getOneUnsolvedQuizP = new Promise (function(resolve, reject){
+      db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
+        if(err){
+          reject(err);
+        } else {
+          unSolvedQuizes.push(doc);
+          resolve();
+        }
+      });
+    }).then(function(doc){
+      usqCont++;
+    },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
+    
   });
 
 
@@ -117,8 +116,8 @@ exports.show = function (req, res){
 
 
 
-  Promise.all([getAllQuizesP]).then(function(){
-    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: quizes});
+  Promise.all([getAllQuizesP,getAllUnsolvedQuizesP]).then(function(){
+    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
 };
