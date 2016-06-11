@@ -95,22 +95,36 @@ exports.show = function (req, res){
 
   var unSolvedQuizesP = new Promise(function(resolve,reject){
     // { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
-    var query = "{ _id: { $in: [";
+    var query = " _id: { $in: [";
     for (var i = 0; i < req.patient.unSolvedQuizes.length; i++) {
       query = query + "ObjectId('" + req.patient.unSolvedQuizes[i] + "')";
       if(i != req.patient.unSolvedQuizes.length - 1){
         query = query + ",";
       }
     }
-    query = query + "]}}";
+    query = query + "]}";
     console.log(query);
+
+    db2.quizes.find({query},function (err, docs) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(docs);
+      }
+    });
+
     resolve();
   });
 
-  unSolvedQuizesP.then(function(){console.log('Promesa: unSolvedQuizesP, CUMPLIDA');});
+  unSolvedQuizesP.then(function (docs){
+    console.log('unSolvedQuizesP se ha cumplido. Armacenando los docs en unSolvedQuizes');
+    unSolvedQuizes = docs;
+  }, function (err) {
+    console.log('allQuizesP no se ha cumplido. Error: ' + err);
+  });
 
   Promise.all([allQuizesP,unSolvedQuizesP]).then(function(){
-    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: quizes});
+    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
 };
