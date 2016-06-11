@@ -158,7 +158,7 @@ exports.show = function (req, res){
     console.log('allQuizesP no se ha cumplido. Error: ' + err);
   });
 
-  Promise.all([getAllQuizesP,getAllUnSolvedQuizesP,getAllSolvedQuizesP]).then(function(){
+  Promise.all([getAllQuizesP, getAllUnSolvedQuizesP, getAllSolvedQuizesP]).then(function(){
     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: solvedQuizes, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
