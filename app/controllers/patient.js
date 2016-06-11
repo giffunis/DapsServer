@@ -75,7 +75,9 @@ exports.index = function(req, res, next) {
 exports.show = function (req, res){
   var quizes;
   var usqCont = 0;
+  var sqCont = 0;
   var unSolvedQuizes = [];
+  var solvedQuizes = [];
 
   getOneUnSolvedQuiz = function(callback,callback2){
     get = new Promise (function(resolve, reject){
@@ -107,6 +109,28 @@ exports.show = function (req, res){
   }, function (err) {
     console.log('getAllUnsolvedQuizesP no se ha cumplido');
   });
+
+  getOneSolvedQuiz = function(callback,callback2){
+    get = new Promise (function(resolve, reject){
+      db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.solvedQuizes[sqCont])}, function(err, doc) {
+        if(err){
+          reject(err);
+        } else {
+          solvedQuizes.push(doc);
+          resolve();
+        }
+      });
+    }).then(function(doc){
+      sqCont++;
+      console.log("Se ha cumplido la promesa, getOneSolvedQuizP; El contador = " + sqCont);
+      if(sqCont < req.patient.solvedQuizes.length){
+        getOneSolvedQuiz(callback,callback2);
+      }else {
+        callback();
+      }
+    },function(err){console.log('Se ha producido un error en la promesa getOneSolvedQuizP:' + err); callback2();});
+  };
+
 
   var getAllQuizesP = new Promise(function(resolve,reject){
     db2.quizes.find(function (err, docs) {
