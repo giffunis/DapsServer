@@ -74,7 +74,9 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function (req, res){
-  var quizes, unSolvedQuizes;
+  var quizes;
+  var contadorPromesas = 0;
+  var unsolvedQuizes = [];
 
   var allQuizesP = new Promise(function(resolve,reject){
     db2.quizes.find(function (err, docs) {
@@ -93,40 +95,10 @@ exports.show = function (req, res){
     console.log('allQuizesP no se ha cumplido. Error: ' + err);
   });
 
-  var unSolvedQuizesP = new Promise(function(resolve,reject){
-    // { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
-    var query = " _id: { $in: [";
-    for (var i = 0; i < req.patient.unSolvedQuizes.length; i++) {
-      query = query + "ObjectId('" + req.patient.unSolvedQuizes[i] + "')";
-      if(i != req.patient.unSolvedQuizes.length - 1){
-        query = query + ",";
-      }
-    }
-    query = query + "]}";
-    console.log(query);
-    var prueba = [];
-    prueba.quizName = "Primer test";
-    console.log(prueba);
 
-    db2.quizes.find({_id: { $in: [mongojs.ObjectId('5756b79bc7947809e7b2b626'),mongojs.ObjectId('575808936036657115878052')]}},function (err, docs) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(docs);
-      }
-    });
 
-  });
-
-  unSolvedQuizesP.then(function (docs){
-    console.log('unSolvedQuizesP se ha cumplido. Armacenando los docs en unSolvedQuizes: ' + docs);
-    unSolvedQuizes = docs;
-  }, function (err) {
-    console.log('unSolvedQuizesP no se ha cumplido. Error: ' + err);
-  });
-
-  Promise.all([allQuizesP,unSolvedQuizesP]).then(function(){
-    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
+  Promise.all([allQuizesP]).then(function(){
+    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
 };
