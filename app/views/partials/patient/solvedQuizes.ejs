@@ -11,7 +11,7 @@
                 <th>Link</th>
             </tr>
         </thead>
-        <% if (solvedQuizes) { %>
+        <% if (solvedQuizes & solvedQuizes.length != 0) { %>
           <tbody>
             <% for (var i = 0; i < solvedQuizes.length; i++) { %>
               <tr class="gradeA">
