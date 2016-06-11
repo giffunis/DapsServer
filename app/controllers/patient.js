@@ -97,7 +97,7 @@ exports.show = function (req, res){
     // { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
 
 
-    db2.quizes.find({_id: mongojs.ObjectId(req,patient.unSolvedQuizes[0])},function (err, docs) {
+    db2.quizes.find({_id: mongojs.ObjectId(req.patient.unSolvedQuizes[0])},function (err, docs) {
       if (err) {
         reject(err);
       } else {
