@@ -74,21 +74,36 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function (req, res){
-  db2.quizes.find(function (err, quizes) {
-    if(err){
-      next(new Error(err));
-    } else {
-      req.quizes = quizes;
-      res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
-    }
-  });
-
-  // db2.quizes.find().then(function (quizes){
+  // db2.quizes.find(function (err, quizes) {
+  //   if(err){
+  //     next(new Error(err));
+  //   } else {
   //     req.quizes = quizes;
   //     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
-  //   },function(err){
-  //     next(new Error(err));
-  //   });
+  //   }
+  // });
+
+  var allQuizesP = new Promise(function(resolve,reject){
+    db2.quizes.find(function (err, docs) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(docs);
+      }
+    });
+  });
+
+  allQuizesP.then(function (quizes){
+    console.log('allQuizesP se ha cumplido. Armacenando los quizes');
+    req.quizes = quizes;
+  }, function (err) {
+    console.log('allQuizesP no se ha cumplido. Error: ' + err);
+  });
+
+  Promise.all([allQuizesP]).then(function(){
+    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
+  }, function(){res.send('Se ha producido un error');});
+
 };
 
 exports.addQuiz = function(req, res, next){
