@@ -78,35 +78,35 @@ exports.show = function (req, res){
   var usqCont = 0;
   var unSolvedQuizes = [];
 
-
-  var getAllUnsolvedQuizesP = new Promise(function(resolve,reject){
-
-    getOneUnsolvedQuizP = new Promise (function(resolve, reject){
-      db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
-        if(err){
-          reject(err);
-        } else {
-          unSolvedQuizes.push(doc);
-          resolve();
-        }
-      });
-    }).then(function(doc){
-      usqCont++;
-      console.log("Se ha cumplido la promesa, getOneUnsolvedQuizP; El contador = " + usqCont);
-    },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
-
-    if(usqCont == 1){
-      resolve();
-    } else {
-      reject();
+bucle = function(callback){
+  getOneUnsolvedQuizP = new Promise (function(resolve, reject){
+    db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
+      if(err){
+        reject(err);
+      } else {
+        unSolvedQuizes.push(doc);
+        resolve();
+      }
+    });
+  }).then(function(doc){
+    usqCont++;
+    console.log("Se ha cumplido la promesa, getOneUnsolvedQuizP; El contador = " + usqCont);
+    if(usqCont < req.patient.unSolvedQuizes.length){
+      bucle(callback);
+    }else {
+      return callback;
     }
+  },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
+};
 
+  var getAllUnsolvedQuizesP = new Promise(function(finished,unsolved){
+    bucle(finished);
   });
 
   getAllUnsolvedQuizesP.then(function (){
     console.log('getAllUnsolvedQuizesP se ha cumplido. Armacenando los docs en quizes');
   }, function (err) {
-    console.log('getAllUnsolvedQuizesP no se ha cumplido. Error: ' + err);
+    console.log('getAllUnsolvedQuizesP no se ha cumplido. Error: ');
   });
 
   var getAllQuizesP = new Promise(function(resolve,reject){
