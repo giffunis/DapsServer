@@ -43,7 +43,6 @@ exports.new = function (req, res) {
   res.render('pages/patient/new', { title: 'Crear un paciente', patient: patient, errors: errors});
 };
 
-
 exports.create = function(req, res, next) {
   console.log('función: patient.create');
   var patient = new Patient(req.body.patient);
@@ -78,35 +77,35 @@ exports.show = function (req, res){
   var usqCont = 0;
   var unSolvedQuizes = [];
 
-bucle = function(callback){
-  getOneUnsolvedQuizP = new Promise (function(resolve, reject){
-    db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
-      if(err){
-        reject(err);
-      } else {
-        unSolvedQuizes.push(doc);
-        resolve();
+  getOneUnSolvedQuiz = function(callback,callback2){
+    get = new Promise (function(resolve, reject){
+      db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
+        if(err){
+          reject(err);
+        } else {
+          unSolvedQuizes.push(doc);
+          resolve();
+        }
+      });
+    }).then(function(doc){
+      usqCont++;
+      console.log("Se ha cumplido la promesa, getOneUnsolvedQuizP; El contador = " + usqCont);
+      if(usqCont < req.patient.unSolvedQuizes.length){
+        getOneUnSolvedQuiz(callback,callback2);
+      }else {
+        callback();
       }
-    });
-  }).then(function(doc){
-    usqCont++;
-    console.log("Se ha cumplido la promesa, getOneUnsolvedQuizP; El contador = " + usqCont);
-    if(usqCont < req.patient.unSolvedQuizes.length){
-      bucle(callback);
-    }else {
-      callback();
-    }
-  },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
-};
+    },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err); callback2();});
+  };
 
-  var getAllUnsolvedQuizesP = new Promise(function(finished,unsolved){
-    bucle(finished);
+  var getAllUnSolvedQuizesP = new Promise(function(resolve,reject){
+    getOneUnSolvedQuiz(resolve,reject);
   });
 
-  getAllUnsolvedQuizesP.then(function (){
+  getAllUnSolvedQuizesP.then(function (){
     console.log('getAllUnsolvedQuizesP se ha cumplido. Armacenando los docs en quizes');
   }, function (err) {
-    console.log('getAllUnsolvedQuizesP no se ha cumplido. Error: ');
+    console.log('getAllUnsolvedQuizesP no se ha cumplido');
   });
 
   var getAllQuizesP = new Promise(function(resolve,reject){
@@ -128,7 +127,7 @@ bucle = function(callback){
 
 
 
-  Promise.all([getAllQuizesP,getAllUnsolvedQuizesP]).then(function(){
+  Promise.all([getAllQuizesP,getAllUnSolvedQuizesP]).then(function(){
     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
