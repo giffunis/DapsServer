@@ -74,14 +74,7 @@ exports.index = function(req, res, next) {
 };
 
 exports.show = function (req, res){
-  // db2.quizes.find(function (err, quizes) {
-  //   if(err){
-  //     next(new Error(err));
-  //   } else {
-  //     req.quizes = quizes;
-  //     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
-  //   }
-  // });
+  var quizes, unSolvedQuizes;
 
   var allQuizesP = new Promise(function(resolve,reject){
     db2.quizes.find(function (err, docs) {
@@ -93,15 +86,31 @@ exports.show = function (req, res){
     });
   });
 
-  allQuizesP.then(function (quizes){
-    console.log('allQuizesP se ha cumplido. Armacenando los quizes');
-    req.quizes = quizes;
+  allQuizesP.then(function (docs){
+    console.log('allQuizesP se ha cumplido. Armacenando los docs en quizes');
+    quizes = docs;
   }, function (err) {
     console.log('allQuizesP no se ha cumplido. Error: ' + err);
   });
 
-  Promise.all([allQuizesP]).then(function(){
-    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: req.quizes});
+  var unSolvedQuizesP = new Promise(function(resolve,reject){
+    // { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
+    var query = "{ _id: { $in: [";
+    for (var i = 0; i < req.patient.unSolvedQuizes.length; i++) {
+      query = query + "ObjectId('" + req.patient.unSolvedQuizes[i] + "')";
+      if(i != req.patient.unSolvedQuizes.length - 1){
+        query = query + ",";
+      }
+    }
+    query = query + "]}}";
+    console.log(query);
+    resolve();
+  });
+
+  unSolvedQuizesP.then(function(){console.log('Promesa: unSolvedQuizesP, CUMPLIDA');});
+
+  Promise.all([allQuizesP,unSolvedQuizesP]).then(function(){
+    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
 };
