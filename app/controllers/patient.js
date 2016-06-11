@@ -93,9 +93,20 @@ exports.show = function (req, res){
     }).then(function(doc){
       usqCont++;
     },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
-    
+
+    if(usqCont == 1){
+      resolve();
+    } else {
+      reject();
+    }
+
   });
 
+  getAllUnsolvedQuizesP.then(function (){
+    console.log('getAllUnsolvedQuizesP se ha cumplido. Armacenando los docs en quizes');
+  }, function (err) {
+    console.log('getAllUnsolvedQuizesP no se ha cumplido. Error: ' + err);
+  });
 
   var getAllQuizesP = new Promise(function(resolve,reject){
     db2.quizes.find(function (err, docs) {
