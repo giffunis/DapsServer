@@ -95,9 +95,20 @@ exports.show = function (req, res){
 
   var unSolvedQuizesP = new Promise(function(resolve,reject){
     // { field: { $in: [<value1>, <value2>, ... <valueN> ] } }
+    var query = " _id: { $in: [";
+    for (var i = 0; i < req.patient.unSolvedQuizes.length; i++) {
+      query = query + "ObjectId('" + req.patient.unSolvedQuizes[i] + "')";
+      if(i != req.patient.unSolvedQuizes.length - 1){
+        query = query + ",";
+      }
+    }
+    query = query + "]}";
+    console.log(query);
+    var prueba = [];
+    prueba.quizName = "Primer test";
+    console.log(prueba);
 
-
-    db2.quizes.find({_id: mongojs.ObjectId(req.patient.unSolvedQuizes[0])},function (err, docs) {
+    db2.quizes.find({_id: { $in: [mongojs.ObjectId('5756b79bc7947809e7b2b626'),mongojs.ObjectId('575808936036657115878052')]}},function (err, docs) {
       if (err) {
         reject(err);
       } else {
@@ -105,7 +116,6 @@ exports.show = function (req, res){
       }
     });
 
-    resolve();
   });
 
   unSolvedQuizesP.then(function (docs){
