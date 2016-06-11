@@ -94,7 +94,7 @@ bucle = function(callback){
     if(usqCont < req.patient.unSolvedQuizes.length){
       bucle(callback);
     }else {
-      return callback;
+      callback();
     }
   },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
 };
