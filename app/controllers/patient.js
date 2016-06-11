@@ -92,6 +92,7 @@ exports.show = function (req, res){
       });
     }).then(function(doc){
       usqCont++;
+      console.log("Se ha cumplido la promesa, getOneUnsolvedQuizP; El contador = " + usqCont);
     },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
 
     if(usqCont == 1){
