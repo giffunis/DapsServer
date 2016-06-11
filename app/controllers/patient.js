@@ -131,6 +131,15 @@ exports.show = function (req, res){
     },function(err){console.log('Se ha producido un error en la promesa getOneSolvedQuizP:' + err); callback2();});
   };
 
+  var getAllSolvedQuizesP = new Promise(function(resolve,reject){
+    getOneSolvedQuiz(resolve,reject);
+  });
+
+  getAllSolvedQuizesP.then(function (){
+    console.log('getAllSolvedQuizesP se ha cumplido');
+  }, function (err) {
+    console.log('getAllSolvedQuizesP no se ha cumplido');
+  });
 
   var getAllQuizesP = new Promise(function(resolve,reject){
     db2.quizes.find(function (err, docs) {
@@ -149,8 +158,8 @@ exports.show = function (req, res){
     console.log('allQuizesP no se ha cumplido. Error: ' + err);
   });
 
-  Promise.all([getAllQuizesP,getAllUnSolvedQuizesP]).then(function(){
-    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
+  Promise.all([getAllQuizesP,getAllUnSolvedQuizesP,getAllSolvedQuizesP]).then(function(){
+    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: solvedQuizes, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
 };
