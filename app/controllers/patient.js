@@ -75,10 +75,30 @@ exports.index = function(req, res, next) {
 
 exports.show = function (req, res){
   var quizes;
-  var contadorPromesas = 0;
-  var unsolvedQuizes = [];
+  var usqCont = 0;
+  var unSolvedQuizes = [];
 
-  var allQuizesP = new Promise(function(resolve,reject){
+  var getOneUnsolvedQuizP = new Promise (function(resolve, reject){
+    db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
+      if(err){
+        reject(err);
+      } else {
+        unSolvedQuizes.push(doc);
+        resolve();
+      }
+    });
+  });
+
+  var getAllUnsolvedQuizesP = new Promise(function(resolve,reject){
+    do {
+      getOneUnsolvedQuizP.then(function(doc){
+        usqCont++;
+      },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err);});
+    } while (true);
+  });
+
+
+  var getAllQuizesP = new Promise(function(resolve,reject){
     db2.quizes.find(function (err, docs) {
       if (err) {
         reject(err);
@@ -88,7 +108,7 @@ exports.show = function (req, res){
     });
   });
 
-  allQuizesP.then(function (docs){
+  getAllQuizesP.then(function (docs){
     console.log('allQuizesP se ha cumplido. Armacenando los docs en quizes');
     quizes = docs;
   }, function (err) {
@@ -97,7 +117,7 @@ exports.show = function (req, res){
 
 
 
-  Promise.all([allQuizesP]).then(function(){
+  Promise.all([getAllQuizesP]).then(function(){
     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: null, unSolvedQuizes: null, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
