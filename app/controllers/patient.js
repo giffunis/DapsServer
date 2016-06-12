@@ -84,8 +84,10 @@ exports.show = function (req, res){
       db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
         if(err){
           reject(err);
-        } else {
+        } else if(doc !== null){
           unSolvedQuizes.push(doc);
+          resolve();
+        }else {
           resolve();
         }
       });
