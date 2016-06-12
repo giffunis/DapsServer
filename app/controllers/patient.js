@@ -161,7 +161,6 @@ exports.show = function (req, res){
   });
 
   Promise.all([getAllQuizesP, getAllUnSolvedQuizesP, getAllSolvedQuizesP]).then(function(){
-    console.log(solvedQuizes.length);
     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: solvedQuizes, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
