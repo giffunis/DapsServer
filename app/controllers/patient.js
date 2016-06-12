@@ -168,7 +168,7 @@ exports.show = function (req, res){
 
 };
 
-exports.addQuiz = function(req, res, next){
+exports.addUnsolvedQuiz = function(req, res, next){
   var unSolvedQuizes = req.patient.unSolvedQuizes;
   unSolvedQuizes.push(req.quiz._id);
   Patient.update({ '_id': req.patient._id}, {'$set': {'unSolvedQuizes': unSolvedQuizes}}, function(err){
