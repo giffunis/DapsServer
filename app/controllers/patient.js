@@ -115,8 +115,10 @@ exports.show = function (req, res){
       db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.solvedQuizes[sqCont])}, function(err, doc) {
         if(err){
           reject(err);
-        } else {
+        } else if(doc !== null) {
           solvedQuizes.push(doc);
+          resolve();
+        } else {
           resolve();
         }
       });
@@ -159,6 +161,7 @@ exports.show = function (req, res){
   });
 
   Promise.all([getAllQuizesP, getAllUnSolvedQuizesP, getAllSolvedQuizesP]).then(function(){
+    console.log(solvedQuizes.length);
     res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: solvedQuizes, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
   }, function(){res.send('Se ha producido un error');});
 
