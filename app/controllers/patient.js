@@ -178,5 +178,20 @@ exports.addUnsolvedQuiz = function(req, res, next){
       res.send("ok, el test ha sido asignado");
     }
   });
+};
+
+/*  addSolvedQuiz:
+ * Esta función añadirá el quiz resuelto a la bd y además actualizará
+ * El parámetro del paciente y ejecutará removeUnsolvedQuiz .
+*/
+exports.addSolvedQuiz = function(req, res, next) {
+
+};
+
+/*  removeUnsolvedQuiz
+ *  Esta función se llamará en el caso de que el usuario resuelva el quiz y se
+ *  se añada en solvedQuizes.
+ */
+exports.removeUnsolvedQuiz = function(req, res, next){
 
 };
