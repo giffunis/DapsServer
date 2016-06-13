@@ -198,5 +198,40 @@ exports.removeUnsolvedQuiz = function(req, res, next){
 
 
 exports.IndexUnsolvedQuizes = function (req, res){
-  res.json(req.patient.unSolvedQuizes);
+  var usqCont = 0;
+  var unSolvedQuizes = [];
+
+  getOneUnSolvedQuiz = function(callback,callback2){
+    get = new Promise (function(resolve, reject){
+      db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
+        if(err){
+          reject(err);
+        } else if(doc !== null){
+          unSolvedQuizes.push(doc);
+          resolve();
+        }else {
+          resolve();
+        }
+      });
+    }).then(function(doc){
+      usqCont++;
+      console.log("Se ha cumplido la promesa, getOneUnsolvedQuizP; El contador = " + usqCont);
+      if(usqCont < req.patient.unSolvedQuizes.length){
+        getOneUnSolvedQuiz(callback,callback2);
+      }else {
+        callback();
+      }
+    },function(err){console.log('Se ha producido un error en la promesa getOneUnsolvedQuizP:' + err); callback2();});
+  };
+
+  var getAllUnSolvedQuizesP = new Promise(function(resolve,reject){
+    getOneUnSolvedQuiz(resolve,reject);
+  });
+
+  getAllUnSolvedQuizesP.then(function (){
+    console.log('getAllUnsolvedQuizesP se ha cumplido. Armacenando los docs en quizes');
+    res.json(unSolvedQuizes);
+  }, function (err) {
+    console.log('getAllUnsolvedQuizesP no se ha cumplido');
+  });
 };
