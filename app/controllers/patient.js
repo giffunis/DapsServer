@@ -196,7 +196,6 @@ exports.removeUnsolvedQuiz = function(req, res, next){
 
 };
 
-
 exports.IndexUnsolvedQuizes = function (req, res){
   var usqCont = 0;
   var unSolvedQuizes = [];
@@ -234,4 +233,8 @@ exports.IndexUnsolvedQuizes = function (req, res){
   }, function (err) {
     console.log('getAllUnsolvedQuizesP no se ha cumplido');
   });
+};
+
+exports.showUnsolvedQuiz = function (req, res) {
+  res.json(req.quiz);
 };
