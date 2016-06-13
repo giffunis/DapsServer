@@ -236,7 +236,5 @@ exports.IndexUnsolvedQuizes = function (req, res){
 };
 
 exports.showUnsolvedQuiz = function (req, res) {
-  var quiz = [];
-  quiz.push(req.quiz);
-  res.json(quiz);
+  res.json(req.quiz);
 };
