@@ -17,5 +17,7 @@ patientRouter.get('/:patientId([a-z0-9]{24})', sessionController.loginRequired, 
 patientRouter.get('/:patientId([a-z0-9]{24})/quiz/add/:quizId([a-z0-9]{24})', sessionController.loginRequired, patientController.addUnsolvedQuiz);
 
 
+// Rutas para el dispositivo móvil
+patientRouter.get('/:patientId([a-z0-9]{24})/quiz/unsolvedQuizes', patientController.IndexUnsolvedQuizes);
 
 module.exports = patientRouter;
