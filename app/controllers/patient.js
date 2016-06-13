@@ -203,7 +203,7 @@ exports.IndexUnsolvedQuizes = function (req, res){
 
   getOneUnSolvedQuiz = function(callback,callback2){
     get = new Promise (function(resolve, reject){
-      db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, function(err, doc) {
+      db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.unSolvedQuizes[usqCont])}, {quizName: 1}, function(err, doc) {
         if(err){
           reject(err);
         } else if(doc !== null){
