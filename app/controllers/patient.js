@@ -4,6 +4,7 @@ var Doctor = mongoose.model('Doctor');
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost/dapsserver-development', ['patients']);
 var db2 = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
+var dbSolvedQuises = mongojs('mongodb://localhost/dapsserver-development', ['solvedquizes']);
 
 exports.load = function (req, res, next, patientId) {
   db.patients.findOne({ _id: mongojs.ObjectId(patientId)}, function (err, patient){
@@ -114,7 +115,7 @@ exports.show = function (req, res){
 
   getOneSolvedQuiz = function(callback,callback2){
     get = new Promise (function(resolve, reject){
-      db2.quizes.findOne({ _id: mongojs.ObjectId(req.patient.solvedQuizes[sqCont])}, function(err, doc) {
+      dbSolvedQuises.solvedquizes.findOne({ _id: mongojs.ObjectId(req.patient.solvedQuizes[sqCont])}, function(err, doc) {
         if(err){
           reject(err);
         } else if(doc !== null) {
@@ -180,23 +181,6 @@ exports.addUnsolvedQuiz = function(req, res, next){
   });
 };
 
-
-/*  addSolvedQuiz:
- * Esta función añadirá el quiz resuelto a la bd y además actualizará
- * El parámetro del paciente y ejecutará removeUnsolvedQuiz .
-*/
-exports.addSolvedQuiz = function(req, res, next) {
-
-};
-
-/*  removeUnsolvedQuiz
- *  Esta función se llamará en el caso de que el usuario resuelva el quiz y se
- *  se añada en solvedQuizes.
- */
-exports.removeUnsolvedQuiz = function(req, res, next){
-
-};
-
 exports.IndexUnsolvedQuizes = function (req, res){
   var usqCont = 0;
   var unSolvedQuizes = [];
@@ -241,7 +225,67 @@ exports.showUnsolvedQuiz = function (req, res) {
 };
 
 exports.uploadSolvedQuiz = function (req, res) {
-  console.log(req.body.username);
-  console.log(req.body.email);
-  res.status(200).send("Soy el server");
+  var result;
+  console.log(req.body);
+
+  var saveInDBP = new Promise(function(resolve,reject){
+    dbSolvedQuises.solvedquizes.insert(req.body, function (err, quiz) {
+      if(err){
+        reject(err);
+      } else {
+        result = quiz;
+        resolve();
+      }
+    });
+  });
+
+  saveInDBP.then(function (){
+    console.log('saveInDBP se ha cumplido. Armacenando el quiz resuelto en la BBDD');
+
+    var deleteUnSolvedQuizP = new Promise(function(resolve, reject){
+      var unSolvedQuizes = [];
+      for(var i = 0; i < req.patient.unSolvedQuizes.length; i++){
+        if(req.patient.unSolvedQuizes[i] != req.body.quizId){
+          unSolvedQuizes.push(req.patient.unSolvedQuizes[i]);
+        }
+      }
+      Patient.update({ '_id': req.patient._id}, {'$set': {'unSolvedQuizes': unSolvedQuizes}}, function(err){
+        if(err){
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    }).then(function (){
+      console.log("deleteUnSolvedQuizP: Se ha eliminado el test de unSolvedQuizes");
+    }, function(err){
+      console.log("deleteUnSolvedQuizP: Se ha producido un error, " + err);
+    });
+
+  }, function (err) {
+    console.log('Error en saveInDBP' + err);
+  });
+
+  Promise.all([saveInDBP]).then(function(){
+    var solvedQuizes = [];
+    solvedQuizes = req.patient.solvedQuizes;
+    solvedQuizes.push(result._id);
+    Patient.update({ '_id': req.patient._id}, {'$set': {'solvedQuizes': solvedQuizes}}, function(err){
+      if(err){
+        res.status(200).json({'respuesta':'Se han cumplido las promesas pero no se ha podido actualizar el solvedquizes del paciente'});
+      } else {
+        res.status(200).json({'respuesta':'ok'});
+      }
+    });
+  }, function(){res.status(200).json({'respuesta':'No se ha podido guardar el quiz resuelto en la BBDD'});});
+
+  // dbSolvedQuises.solvedquizes.insert(req.body, function (err) {
+  //   if(err){
+  //     console.log('Error: No se ha podido guardar el documento en la bd');
+  //     res.status(200).json({'respuesta':'No se ha podido guardar el quiz resuelto en la BBDD'});
+  //   } else {
+  //     console.log('Se ha guardado el test en la BBDD');
+  //     res.status(200).json({'respuesta':'Se ha guardado el test en la BBDD'});
+  //   }
+  // });
 };
