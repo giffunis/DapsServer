@@ -239,3 +239,7 @@ exports.IndexUnsolvedQuizes = function (req, res){
 exports.showUnsolvedQuiz = function (req, res) {
   res.json(req.quiz);
 };
+
+exports.uploadSolvedQuiz = function (req, res) {
+  
+};
