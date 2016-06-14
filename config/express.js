@@ -35,7 +35,7 @@ module.exports = function(app, config) {
   app.use(cookieParser('TFG-2016'));
   app.use(compress());
   app.use(express.static(config.root + '/public'));
-  app.use(methodOverride());
+  app.use(methodOverride('_method'));
   app.use(session());
 
   // Helpers dinamic

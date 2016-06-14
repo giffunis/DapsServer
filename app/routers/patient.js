@@ -14,7 +14,7 @@ patientRouter.post('/new', sessionController.loginRequired, patientController.cr
 patientRouter.get('/', sessionController.loginRequired, patientController.index);
 patientRouter.get('/:patientId([a-z0-9]{24})', sessionController.loginRequired, patientController.show);
 
-patientRouter.get('/:patientId([a-z0-9]{24})/quiz/add/:quizId([a-z0-9]{24})', sessionController.loginRequired, patientController.addUnsolvedQuiz);
+patientRouter.put('/:patientId([a-z0-9]{24})/quiz/add', sessionController.loginRequired, patientController.addUnsolvedQuiz);
 
 
 // Rutas para el dispositivo móvil

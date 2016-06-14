@@ -17,7 +17,13 @@
                   <td class="center"><%= quizes[i].quizName %></td>
                   <td class="center"><%= quizes[i].nQuestions %></td>
                   <td class="center"><a href="/quiz/<%= quizes[i]._id %>">ver</a></td>
-                  <td class="center"><a href="/patient/<%= patient._id %>/quiz/add/<%=quizes[i]._id %>">añadir</a></td>
+                  <td class="center"> <form  method="post" action="/patient/<%= patient._id %>/quiz/add?_method=put">
+                    <div class="form-group" style="display:none">
+                      <input id="addQuiz" name="addQuiz"  value="<%= quizes[i]._id %>">
+                    </div>
+                    <button type="submit" class="btn btn-success">Añadir</button>
+                  </form> </td>
+                  <!-- <td class="center"><a href="/patient/<%= patient._id %>/quiz/add/<%=quizes[i]._id %>">añadir</a></td> -->
               </tr>
             <% } %>
           </tbody>

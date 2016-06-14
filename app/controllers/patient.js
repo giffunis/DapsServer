@@ -170,7 +170,7 @@ exports.show = function (req, res){
 
 exports.addUnsolvedQuiz = function(req, res, next){
   var unSolvedQuizes = req.patient.unSolvedQuizes;
-  unSolvedQuizes.push(req.quiz._id);
+  unSolvedQuizes.push(req.body.addQuiz);
   Patient.update({ '_id': req.patient._id}, {'$set': {'unSolvedQuizes': unSolvedQuizes}}, function(err){
     if(err){
       next(new Error(err));
@@ -179,6 +179,7 @@ exports.addUnsolvedQuiz = function(req, res, next){
     }
   });
 };
+
 
 /*  addSolvedQuiz:
  * Esta función añadirá el quiz resuelto a la bd y además actualizará
