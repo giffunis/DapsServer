@@ -241,5 +241,5 @@ exports.showUnsolvedQuiz = function (req, res) {
 };
 
 exports.uploadSolvedQuiz = function (req, res) {
-  
+  res.status(200).send("Soy el server");
 };
