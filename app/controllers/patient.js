@@ -21,6 +21,20 @@ exports.load = function (req, res, next, patientId) {
   });
 };
 
+exports.solvedQuizLoad = function (req, res, next, solvedId) {
+  console.log("solvedQuizLoad " + solvedId);
+  dbSolvedQuises.solvedquizes.findOne({ _id: mongojs.ObjectId(solvedId)}, function(err, doc) {
+    if(err){
+      next (new Error (err));
+    } else if(doc !== null) {
+      req.solvedQuiz = doc;
+      next();
+    } else {
+      next (new Error ('El solvedQuiz no existe'));
+    }
+  });
+};
+
 exports.new = function (req, res) {
   var errors = req.session.errors || {};
   req.session.errors = {};
@@ -288,4 +302,8 @@ exports.uploadSolvedQuiz = function (req, res) {
   //     res.status(200).json({'respuesta':'Se ha guardado el test en la BBDD'});
   //   }
   // });
+};
+
+exports.showSolvedQuiz = function(req,res){
+  res.render('pages/patient/quizShow', {title: "Test realizado por el paciente", quiz: req.solvedQuiz});
 };

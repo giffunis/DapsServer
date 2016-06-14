@@ -17,7 +17,7 @@
                   <td class="center"><%= solvedQuizes[i].nQuestions %></td>
                   <td class="center"><%= solvedQuizes[i].correctAnswers %></td>
                   <td class="center"><%= solvedQuizes[i].failedAnswers %></td>
-                  <td class="center"><a href="/patient/<%= patient._id %>/quiz/<%= solvedQuizes[i]._id %>">ver</a></td>
+                  <td class="center"><a href="/patient/<%= patient._id %>/quiz/solvedQuizes/<%= solvedQuizes[i]._id %>">ver</a></td>
               </tr>
             <% } %>
           </tbody>

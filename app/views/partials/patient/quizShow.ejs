@@ -1,0 +1,31 @@
+<% if (quiz) { %>
+
+
+  <% for(var i = 0; i < quiz.nQuestions; i++){ %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong> <%= quiz.questions[i].bodyQuestion %> </strong></p>
+          <% if(quiz.questions[i].answerType == 'singleChoise') { %>
+              <p><%= quiz.questions[i].answer %></p>
+          <% } else if (quiz.questions[i].answerType == 'multipleChoise') { %>
+                <p><%= quiz.questions[i].answer %></p>
+          <% } else if (quiz.questions[i].answerType == 'number'){ %>
+            <p><%= quiz.questions[i].answer %></p>
+          <% } else { %>
+              <img src="<%= quiz.questions[i].answer %>" alt="img" width="200" height="200">
+          <% } %>
+        </div>
+      </div>
+    </div>
+  <% } %>
+
+
+
+
+
+
+
+<% } else { %>
+  <div class="alert alert-info" role="alert"> Ha habido un error. Comuníquese con su administrador de la base de datos </div>
+<% } %>
