@@ -4,6 +4,7 @@ var homeController = require('../controllers/home');
 var sessionController = require('../controllers/session');
 
 //  GET '/'
+// router.RequestMethod(URL,controller)
 router.get('/', homeController.home);
 // login GET
 router.get('/login', sessionController.new);
