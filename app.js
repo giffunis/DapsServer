@@ -17,9 +17,21 @@ models.forEach(function (model) {
 });
 var app = express();
 
+var fs = require("fs");
+var https = require("https");
+
+var options = {
+  key: fs.readFileSync('cert/daps-2016-key.pem').toString(),
+  cert: fs.readFileSync('cert/daps-2016-cert.pem').toString()
+};
+
 require('./config/express')(app, config);
 
-app.listen(config.port, function () {
+var server = app.listen(config.port, function () {
   console.log('Express server listening on port ' + config.port);
 });
 
+var serverSecure = https.createServer(options, app);
+serverSecure.listen(4000, function() {
+  console.log('Express serverSecure listening on port ' + server.address().port);
+});
