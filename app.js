@@ -20,6 +20,12 @@ var app = express();
 var fs = require("fs");
 var https = require("https");
 
+// var options = {
+//   key: fs.readFileSync('cert/daps-key.pem').toString(),
+//   cert: fs.readFileSync('cert/daps-cert.pem').toString(),
+//   passphrase: 'password'
+// };
+
 var options = {
   key: fs.readFileSync('cert/daps-2016-key.pem').toString(),
   cert: fs.readFileSync('cert/daps-2016-cert.pem').toString()
