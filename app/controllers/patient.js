@@ -21,6 +21,12 @@ exports.load = function (req, res, next, patientId) {
   });
 };
 
+respuesta = function(array){
+  var answer = [];
+  var principio = "{name: valor, array: " + array + "}";
+  console.log(principio);
+};
+
 exports.solvedQuizLoad = function (req, res, next, solvedId) {
   console.log("solvedQuizLoad " + solvedId);
   dbSolvedQuises.solvedquizes.findOne({ _id: mongojs.ObjectId(solvedId)}, function(err, doc) {
@@ -228,7 +234,11 @@ exports.IndexUnsolvedQuizes = function (req, res){
 
   getAllUnSolvedQuizesP.then(function (){
     console.log('getAllUnsolvedQuizesP se ha cumplido. Armacenando los docs en quizes');
-    res.json(unSolvedQuizes);
+
+    var salida = [{"signature": "firmado", "respuesta": unSolvedQuizes}];
+    var prueba = {"respuesta":unSolvedQuizes};
+    console.log(prueba.respuesta);
+    res.json(salida);
   }, function (err) {
     console.log('getAllUnsolvedQuizesP no se ha cumplido');
   });
