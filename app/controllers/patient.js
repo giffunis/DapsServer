@@ -1,3 +1,4 @@
+var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Patient = mongoose.model('Patient');
 var Doctor = mongoose.model('Doctor');
@@ -5,6 +6,20 @@ var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost/dapsserver-development', ['patients']);
 var db2 = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
 var dbSolvedQuises = mongojs('mongodb://localhost/dapsserver-development', ['solvedquizes']);
+
+// Choose algorithm to the hash function
+var algorithm = 'sha1';
+
+var publicKey = '-----BEGIN PUBLIC KEY-----\n' +
+'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBH8Z/WHOHm/ZbDDoFJGy2xobkc5v\n' +
+'qssP/iIngDj2gcC751zvKkffEVCMCVvyNzcwfeQOOblwQrKTI5eM3ucuuQ==\n' +
+'-----END PUBLIC KEY-----';
+
+var privateKey = '-----BEGIN PRIVATE KEY-----\n' +
+'MEACAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJjAkAgEBBB/0C/yG6Ro0WxfjyBKI\n' +
+'MAT9WnyDRnB3gvKD5AR3En9P\n' +
+'-----END PRIVATE KEY-----';
+
 
 exports.load = function (req, res, next, patientId) {
   db.patients.findOne({ _id: mongojs.ObjectId(patientId)}, function (err, patient){
@@ -235,10 +250,20 @@ exports.IndexUnsolvedQuizes = function (req, res){
   getAllUnSolvedQuizesP.then(function (){
     console.log('getAllUnsolvedQuizesP se ha cumplido. Armacenando los docs en quizes');
 
-    var salida = [{"signature": "firmado", "respuesta": unSolvedQuizes}];
+
     var prueba = {"respuesta":unSolvedQuizes};
-    console.log(prueba.respuesta);
+    var message = JSON.stringify(prueba.respuesta);
+    console.log("message:\n" + message);
+    // Ejemplo de firma
+    var signer = crypto.createSign(algorithm);
+    signer.update(message);
+    var sign = signer.sign(privateKey,'base64');
+    console.log("sign:\n" + sign);
+
+    var salida = [{"signature": sign, "respuesta": unSolvedQuizes}];
+
     res.json(salida);
+    // res.json(unSolvedQuizes);
   }, function (err) {
     console.log('getAllUnsolvedQuizesP no se ha cumplido');
   });
