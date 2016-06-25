@@ -20,6 +20,10 @@ var privateKey = '-----BEGIN PRIVATE KEY-----\n' +
 'MAT9WnyDRnB3gvKD5AR3En9P\n' +
 '-----END PRIVATE KEY-----';
 
+var clavePublicaMovil = '-----BEGIN PUBLIC KEY-----\n' +
+'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbANPZ/m6DDJKt3QFYMIzHOeGzoJ0\n' +
+'avpVCdDv2JY3VOMoavbqxVk0aS/jOI5lUmt5k9sasYtFgQ9bqHYVTilmRQ==\n' +
+'-----END PUBLIC KEY-----';
 
 exports.load = function (req, res, next, patientId) {
   db.patients.findOne({ _id: mongojs.ObjectId(patientId)}, function (err, patient){
