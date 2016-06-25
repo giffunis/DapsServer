@@ -35,7 +35,8 @@ comprobarFirma = function(mensajefirmado, respuesta) {
   var algorithm = 'sha1';
 
 
-  var message = JSON.stringify(respuesta.mensaje);
+  // var message = JSON.stringify(respuesta);
+  var message = respuesta;
   console.log(message);
 
   // Comprobar la firma y el mensaje
@@ -297,7 +298,7 @@ exports.uploadSolvedQuiz = function (req, res) {
   console.log("req.body.signature: " + req.body.signature);
   console.log("req.body.mensaje: ");
   console.log(req.body.mensaje);
-  console.log("La firma es: " + comprobarFirma(req.body.signature,req.body));
+  console.log("La firma es: " + comprobarFirma(req.body.signature,req.body.mensaje));
 
   res.status(200).json({'respuesta':'ok'});
   // var saveInDBP = new Promise(function(resolve,reject){
