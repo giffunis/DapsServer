@@ -36,10 +36,19 @@ exports.load = function (req, res, next, patientId) {
   });
 };
 
-respuesta = function(array){
-  var answer = [];
-  var principio = "{name: valor, array: " + array + "}";
-  console.log(principio);
+firmar = function(array){
+  var prueba = {"respuesta":array};
+  var message = JSON.stringify(prueba.respuesta);
+  console.log("message:\n" + message);
+  // Ejemplo de firma
+  var signer = crypto.createSign(algorithm);
+  signer.update(message);
+  var sign = signer.sign(privateKey,'base64');
+  console.log("sign:\n" + sign);
+
+  var salida = [{"signature": sign, "respuesta": array}];
+  console.log(JSON.stringify(salida));
+  return salida;
 };
 
 exports.solvedQuizLoad = function (req, res, next, solvedId) {
@@ -249,21 +258,7 @@ exports.IndexUnsolvedQuizes = function (req, res){
 
   getAllUnSolvedQuizesP.then(function (){
     console.log('getAllUnsolvedQuizesP se ha cumplido. Armacenando los docs en quizes');
-
-
-    var prueba = {"respuesta":unSolvedQuizes};
-    var message = JSON.stringify(prueba.respuesta);
-    console.log("message:\n" + message);
-    // Ejemplo de firma
-    var signer = crypto.createSign(algorithm);
-    signer.update(message);
-    var sign = signer.sign(privateKey,'base64');
-    console.log("sign:\n" + sign);
-
-    var salida = [{"signature": sign, "respuesta": unSolvedQuizes}];
-    console.log(JSON.stringify(salida));
-
-    res.json(salida);
+    res.json(firmar(unSolvedQuizes));
     // res.json(unSolvedQuizes);
   }, function (err) {
     console.log('getAllUnsolvedQuizesP no se ha cumplido');
