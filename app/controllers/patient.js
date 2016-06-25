@@ -25,6 +25,8 @@ exports.load = function (req, res, next, patientId) {
   });
 };
 
+
+
 comprobarFirma = function(mensajefirmado, respuesta) {
   var clavePublicaMovil = '-----BEGIN PUBLIC KEY-----\n' +
   'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbANPZ/m6DDJKt3QFYMIzHOeGzoJ0\n' +
@@ -240,7 +242,7 @@ exports.show = function (req, res){
   });
 
   Promise.all([getAllQuizesP, getAllUnSolvedQuizesP, getAllSolvedQuizesP]).then(function(){
-    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: solvedQuizes, unSolvedQuizes: unSolvedQuizes, quizes: quizes});
+    res.render('pages/patient/show', { title: 'Datos del paciente', patient: req.patient, solvedQuizes: solvedQuizes, unSolvedQuizes: unSolvedQuizes, quizes: quizes, activity: req.patient.activityDataQueue});
   }, function(){res.send('Se ha producido un error');});
 
 };
