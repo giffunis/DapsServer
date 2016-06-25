@@ -33,6 +33,7 @@ comprobarFirma = function(mensajefirmado, respuesta) {
 
   // Choose algorithm to the hash function
   var algorithm = 'sha1';
+
   var message = JSON.stringify(respuesta.mensaje);
   console.log(message);
 
