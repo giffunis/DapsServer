@@ -7,23 +7,8 @@ var db = mongojs('mongodb://localhost/dapsserver-development', ['patients']);
 var db2 = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
 var dbSolvedQuises = mongojs('mongodb://localhost/dapsserver-development', ['solvedquizes']);
 
-// Choose algorithm to the hash function
-var algorithm = 'sha1';
 
-var publicKey = '-----BEGIN PUBLIC KEY-----\n' +
-'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBH8Z/WHOHm/ZbDDoFJGy2xobkc5v\n' +
-'qssP/iIngDj2gcC751zvKkffEVCMCVvyNzcwfeQOOblwQrKTI5eM3ucuuQ==\n' +
-'-----END PUBLIC KEY-----';
 
-var privateKey = '-----BEGIN PRIVATE KEY-----\n' +
-'MEACAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJjAkAgEBBB/0C/yG6Ro0WxfjyBKI\n' +
-'MAT9WnyDRnB3gvKD5AR3En9P\n' +
-'-----END PRIVATE KEY-----';
-
-var clavePublicaMovil = '-----BEGIN PUBLIC KEY-----\n' +
-'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbANPZ/m6DDJKt3QFYMIzHOeGzoJ0\n' +
-'avpVCdDv2JY3VOMoavbqxVk0aS/jOI5lUmt5k9sasYtFgQ9bqHYVTilmRQ==\n' +
-'-----END PUBLIC KEY-----';
 
 exports.load = function (req, res, next, patientId) {
   db.patients.findOne({ _id: mongojs.ObjectId(patientId)}, function (err, patient){
@@ -40,7 +25,39 @@ exports.load = function (req, res, next, patientId) {
   });
 };
 
+comprobarFirma = function(mensajefirmado, respuesta) {
+  var clavePublicaMovil = '-----BEGIN PUBLIC KEY-----\n' +
+  'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbANPZ/m6DDJKt3QFYMIzHOeGzoJ0\n' +
+  'avpVCdDv2JY3VOMoavbqxVk0aS/jOI5lUmt5k9sasYtFgQ9bqHYVTilmRQ==\n' +
+  '-----END PUBLIC KEY-----';
+
+  // Choose algorithm to the hash function
+  var algorithm = 'sha1';
+  var message = JSON.stringify(respuesta.mensaje);
+  console.log(message);
+
+  // Comprobar la firma y el mensaje
+  var verifier = crypto.createVerify(algorithm);
+  verifier.update(message);
+  var ver = verifier.verify(clavePublicaMovil, mensajefirmado,'base64');
+  return ver;
+};
+
 firmar = function(array){
+
+  // Choose algorithm to the hash function
+  var algorithm = 'sha1';
+
+  var publicKey = '-----BEGIN PUBLIC KEY-----\n' +
+  'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEBH8Z/WHOHm/ZbDDoFJGy2xobkc5v\n' +
+  'qssP/iIngDj2gcC751zvKkffEVCMCVvyNzcwfeQOOblwQrKTI5eM3ucuuQ==\n' +
+  '-----END PUBLIC KEY-----';
+
+  var privateKey = '-----BEGIN PRIVATE KEY-----\n' +
+  'MEACAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJjAkAgEBBB/0C/yG6Ro0WxfjyBKI\n' +
+  'MAT9WnyDRnB3gvKD5AR3En9P\n' +
+  '-----END PRIVATE KEY-----';
+
   var prueba = {"respuesta":array};
   var message = JSON.stringify(prueba.respuesta);
   console.log("message:\n" + message);
@@ -275,9 +292,11 @@ exports.showUnsolvedQuiz = function (req, res) {
 
 exports.uploadSolvedQuiz = function (req, res) {
   var result;
-  console.log("Mensaje completo\n" + req.body);
   console.log("req.body.signature: " + req.body.signature);
-  console.log("req.body.mensaje: " + req.body.mensaje);
+  console.log("req.body.mensaje: ");
+  console.log(req.body.mensaje);
+  console.log("La firma es: " + comprobarFirma(req.body.signature,req.body));
+
   res.status(200).json({'respuesta':'ok'});
   // var saveInDBP = new Promise(function(resolve,reject){
   //   dbSolvedQuises.solvedquizes.insert(req.body, function (err, quiz) {
