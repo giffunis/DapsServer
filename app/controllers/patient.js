@@ -35,8 +35,16 @@ comprobarFirma = function(mensajefirmado, respuesta) {
   var algorithm = 'sha1';
 
 
-  // var message = JSON.stringify(respuesta);
-  var message = respuesta;
+  var message = JSON.stringify(respuesta);
+  message = message.replace(/á/g,'a');
+  message = message.replace(/é/g,'e');
+  message = message.replace(/í/g,'i');
+  message = message.replace(/ó/g,'o');
+  message = message.replace(/ú/g,'u');
+  message = message.replace(/ñ/g,'n');
+  message = message.replace(/¿/g,'');
+  message = message.replace(/¡/g,'');
+  //var message = respuesta;
   console.log(message);
 
   // Comprobar la firma y el mensaje
@@ -301,6 +309,8 @@ exports.uploadSolvedQuiz = function (req, res) {
   console.log("La firma es: " + comprobarFirma(req.body.signature,req.body.mensaje));
 
   res.status(200).json({'respuesta':'ok'});
+
+
   // var saveInDBP = new Promise(function(resolve,reject){
   //   dbSolvedQuises.solvedquizes.insert(req.body, function (err, quiz) {
   //     if(err){
@@ -351,20 +361,7 @@ exports.uploadSolvedQuiz = function (req, res) {
   //     }
   //   });
   // }, function(){res.status(200).json({'respuesta':'No se ha podido guardar el quiz resuelto en la BBDD'});});
-
-
-
-
-
-  // dbSolvedQuises.solvedquizes.insert(req.body, function (err) {
-  //   if(err){
-  //     console.log('Error: No se ha podido guardar el documento en la bd');
-  //     res.status(200).json({'respuesta':'No se ha podido guardar el quiz resuelto en la BBDD'});
-  //   } else {
-  //     console.log('Se ha guardado el test en la BBDD');
-  //     res.status(200).json({'respuesta':'Se ha guardado el test en la BBDD'});
-  //   }
-  // });
+  //
 };
 
 exports.showSolvedQuiz = function(req,res){
