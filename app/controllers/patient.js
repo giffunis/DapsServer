@@ -261,6 +261,7 @@ exports.IndexUnsolvedQuizes = function (req, res){
     console.log("sign:\n" + sign);
 
     var salida = [{"signature": sign, "respuesta": unSolvedQuizes}];
+    console.log(JSON.stringify(salida));
 
     res.json(salida);
     // res.json(unSolvedQuizes);
