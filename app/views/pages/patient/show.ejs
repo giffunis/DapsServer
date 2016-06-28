@@ -30,5 +30,17 @@
     <!-- DataTables JavaScript -->
     <script src="/components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="/components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+      $(function(){
+       $('#pulsar').click(function(){
+         var parameters = { search: $(this).val() };
+         $.get( '/searching',parameters, function(data) {
+           $('#results').html(data);
+         });
+       });
+      });
+
+    </script>
   </body>
 </html>
