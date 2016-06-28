@@ -34,8 +34,8 @@
 
       $(function(){
        $('#pulsar').click(function(){
-         var parameters = { search: $(this).val() };
-         $.get( '/searching',parameters, function(data) {
+         var parameters = { search: null};
+         $.get( '/heartbeat/<%= patient.activityDataQueue[0] %>',parameters, function(data) {
            $('#results').html(data);
          });
        });
