@@ -3,11 +3,13 @@ var patientRouter = express.Router();
 var patientController = require('../controllers/patient');
 var sessionController = require('../controllers/session');
 var quizController = require('../controllers/quiz');
+var heartBeatController = require('../controllers/heartBeat');
 
 // Autoloads
 patientRouter.param('patientId', patientController.load);
 patientRouter.param('quizId', quizController.load);
 patientRouter.param('solvedId', patientController.solvedQuizLoad);
+patientRouter.param('heartBeatId', heartBeatController.load);
 
 //  GET '/new'
 patientRouter.get('/new', sessionController.loginRequired, patientController.new);
@@ -22,5 +24,8 @@ patientRouter.get('/:patientId([a-z0-9]{24})/quiz/solvedQuizes/:solvedId([a-z0-9
 patientRouter.get('/:patientId([a-z0-9]{24})/quiz/unsolvedQuizes', patientController.IndexUnsolvedQuizes);
 patientRouter.get('/:patientId([a-z0-9]{24})/quiz/unsolvedQuizes/:quizId([a-z0-9]{24})', patientController.showUnsolvedQuiz);
 patientRouter.put('/:patientId([a-z0-9]{24})/quiz/solvedQuizes/add', patientController.uploadSolvedQuiz);
+
+// Rutas para obtener los datos del corazón
+patientRouter.get('/:patientId([a-z0-9]{24})/heartBeat/:heartBeatId', heartBeatController.show);
 
 module.exports = patientRouter;
