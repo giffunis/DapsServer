@@ -36,7 +36,7 @@
        $('#pulsar').click(function(){
          var parameters = { search: null};
          $.get( '/heartbeat/<%= patient.activityDataQueue[0] %>',parameters, function(data) {
-           $('#results').html(data);
+           $('#heartBeatGraphic').html(data);
          });
        });
       });
