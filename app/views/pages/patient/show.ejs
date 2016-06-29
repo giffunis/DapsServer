@@ -70,21 +70,13 @@
             console.log(JSON.stringify(data[0]));
           }
           $.plot($("#activityGraphic"), data, options);
-        }
-
-        // Petición ajax
-        // $.ajax({
-				//   url: dataurl,
-				//   type: "GET",
-				//   dataType: "json",
-				//   success: onDataReceived
-			  // });
+        } // onDataReceived()
 
          var parameters = { search: "<%= patient.activityDataQueue[0] %>"};
          $.get( '/activity',parameters, function(series) {
            console.log("Datos obtenidos, llamando a onDataReceived");
            onDataReceived(series);
-         });
+         }); // $.get
 
        });
 
