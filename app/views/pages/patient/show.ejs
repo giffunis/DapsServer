@@ -2,6 +2,8 @@
 <html>
   <head>
     <% include ../../partials/head %>
+
+    <link rel="stylesheet" href="/css/patient_show.css">
   </head>
   <body>
     <div id="wrapper">
@@ -30,6 +32,7 @@
 
     <!-- Flotcharts -->
     <script language="javascript" type="text/javascript" src="/js/flot/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/flot/jquery.flot.categories.js"></script>
 
     <!-- DataTables JavaScript -->
     <script src="/components/datatables/media/js/jquery.dataTables.min.js"></script>
@@ -47,13 +50,13 @@
       			show: true
       		},
       		xaxis: {
-      			tickDecimals: 0,
-      			tickSize: 1
+      			mode: "categories",
+      			tickSize: 0
       		}
       	};
 
         var data = [];
-        $.plot($("#activityGraphic"), data, options);
+        $.plot($("#activity-area-chart"), data, options);
         //  $.plot($("#activityGraphic"), data, options);
 
         // Fetch one series, adding to what we already have
@@ -69,7 +72,7 @@
             data.push(series);
             console.log(JSON.stringify(data[0]));
           }
-          $.plot($("#activityGraphic"), data, options);
+          $.plot($("#activity-area-chart"), data, options);
         } // onDataReceived()
 
          var parameters = { search: "<%= patient.activityDataQueue[0] %>"};
