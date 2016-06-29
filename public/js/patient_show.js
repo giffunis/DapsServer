@@ -34,7 +34,8 @@ $(function(){
     $.plot($("#activity-area-chart"), data, options);
   } // onDataReceived()
 
-   var parameters = { search: $("#activity-url").val(),
+   var parameters = {
+                      patientId: $("#patientId").val(),
                       desde: $("#activity-calendar-desde").val(),
                       hasta: $("#activity-calendar-hasta").val()
                     };
