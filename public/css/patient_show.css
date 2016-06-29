@@ -1,14 +1,14 @@
 
-#activity-area-chart{
+#activity-area-chart, #heartbeat-area-chart{
   width: inherit;;
   height: 300px;
 }
 
-#activity-data{
+#activity-data, #heartbeat-data{
   width: inherit;
   height: 300px;
 }
 
-#patientId{
+#patientId, #patientId2{
   display: none;
 }
