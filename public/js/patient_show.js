@@ -21,7 +21,7 @@ $(function(){
   // Fetch one series, adding to what we already have
   var alreadyFetched = {};
 
-  var dataurl = "/activity/<%= patient.activityDataQueue[0] %>";
+  var dataurl = "/activity/" + $("#activity-url").val();
   // Función que recarga el gráfico.
   function onDataReceived(series) {
     console.log("function onDataReceived");
@@ -34,7 +34,10 @@ $(function(){
     $.plot($("#activity-area-chart"), data, options);
   } // onDataReceived()
 
-   var parameters = { search: "<%= patient.activityDataQueue[0] %>"};
+   var parameters = { search: $("#activity-url").val(),
+                      desde: $("#activity-calendar-desde").val(),
+                      hasta: $("#activity-calendar-hasta").val()
+                    };
    $.get( '/activity',parameters, function(series) {
      console.log("Datos obtenidos, llamando a onDataReceived");
      onDataReceived(series);
@@ -45,4 +48,5 @@ $(function(){
 
   // callendars
   $( "#activity-calendar-desde" ).datepicker();
+  $( "#activity-calendar-hasta" ).datepicker();
 });

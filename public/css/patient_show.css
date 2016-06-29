@@ -8,3 +8,7 @@
   width: inherit;
   height: 300px;
 }
+
+#activity-url{
+  display: none;
+}
