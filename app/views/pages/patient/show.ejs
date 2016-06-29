@@ -18,6 +18,7 @@
               <% include ../../partials/patient/patientInfo %>
               <% include ../../partials/patient/quizesPanel %>
               <% include ../../partials/patient/heartRate %>
+              <% include ../../partials/patient/activity %>
 
       </div>
       <!-- /#page-wrapper -->
@@ -27,6 +28,9 @@
 
     <% include ../../partials/scripts_footer %>
 
+    <!-- Flotcharts -->
+    <script language="javascript" type="text/javascript" src="/js/flot/jquery.flot.js"></script>
+
     <!-- DataTables JavaScript -->
     <script src="/components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="/components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
@@ -34,11 +38,16 @@
 
       $(function(){
        $('#pulsar').click(function(){
-         var parameters = { search: "<%= patient.activityDataQueue[0] %>"};
-         $.get( '/heartbeat',parameters, function(data) {
-           $('#heartBeatGraphic').html(data);
-         });
+        //  var parameters = { search: "<%= patient.activityDataQueue[0] %>"};
+        //  $.get( '/activity',parameters, function(data) {
+        //    $('#activityGraphic').html(data.steps);
+        //  });
+
+        //  $.plot($("#activityGraphic"), data, options);
+         $.plot($("#activityGraphic"), [ [[0, 0], [1, 1]] ], { yaxis: { max: 1 } });
        });
+
+
       });
 
     </script>
