@@ -38,10 +38,6 @@
 
       $(function(){
        $('#pulsar').click(function(){
-        //  var parameters = { search: "<%= patient.activityDataQueue[0] %>"};
-        //  $.get( '/activity',parameters, function(data) {
-        //    $('#activityGraphic').html(data.steps);
-        //  });
 
          var options = {
       		lines: {
@@ -57,7 +53,7 @@
       	};
 
         var data = [];
-        $.plot("#activityGraphic", data, options);
+        $.plot($("#activityGraphic"), data, options);
         //  $.plot($("#activityGraphic"), data, options);
 
         // Fetch one series, adding to what we already have
@@ -66,20 +62,29 @@
         var dataurl = "/activity/<%= patient.activityDataQueue[0] %>";
         // Función que recarga el gráfico.
         function onDataReceived(series) {
+          console.log("function onDataReceived");
           if (!alreadyFetched[series.label]) {
             alreadyFetched[series.label] = true;
+            console.log("almacenando las series en data");
             data.push(series);
+            console.log(JSON.stringify(data[0]));
           }
-          $.plot("#placeholder", data, options);
+          $.plot($("#activityGraphic"), data, options);
         }
 
         // Petición ajax
-        $.ajax({
-				  url: dataurl,
-				  type: "GET",
-				  dataType: "json",
-				  success: onDataReceived
-			  });
+        // $.ajax({
+				//   url: dataurl,
+				//   type: "GET",
+				//   dataType: "json",
+				//   success: onDataReceived
+			  // });
+
+         var parameters = { search: "<%= patient.activityDataQueue[0] %>"};
+         $.get( '/activity',parameters, function(series) {
+           console.log("Datos obtenidos, llamando a onDataReceived");
+           onDataReceived(series);
+         });
 
        });
 

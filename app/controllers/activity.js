@@ -12,11 +12,17 @@ exports.show = function(req,res){
       console.log("Se ha encontrado el siguiente doc:\n" + doc);
 
       var data = [];
-      var puntoL = ["lunes", 2400];
-      var puntoM = ["martes", 3400];
-      var puntoX = ["miercoles", 4500];
-      var puntoJ = ["juevs", 1400];
-      var puntoV = ["viernes", 2700];
+      // var puntoL = ["lunes", 2400];
+      // var puntoM = ["martes", 3400];
+      // var puntoX = ["miercoles", 4500];
+      // var puntoJ = ["juevs", 1400];
+      // var puntoV = ["viernes", 2700];
+
+      var puntoL = [1, 2400];
+      var puntoM = [2, 3400];
+      var puntoX = [3, 4500];
+      var puntoJ = [4, 1400];
+      var puntoV = [5, 2700];
 
       data.push(puntoL);
       data.push(puntoM);
