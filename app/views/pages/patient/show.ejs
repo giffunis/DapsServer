@@ -43,8 +43,44 @@
         //    $('#activityGraphic').html(data.steps);
         //  });
 
+         var options = {
+      		lines: {
+      			show: true
+      		},
+      		points: {
+      			show: true
+      		},
+      		xaxis: {
+      			tickDecimals: 0,
+      			tickSize: 1
+      		}
+      	};
+
+        var data = [];
+        $.plot("#activityGraphic", data, options);
         //  $.plot($("#activityGraphic"), data, options);
-         $.plot($("#activityGraphic"), [ [[0, 0], [1, 1]] ], { yaxis: { max: 1 } });
+
+        // Fetch one series, adding to what we already have
+        var alreadyFetched = {};
+
+        var dataurl = "/activity/<%= patient.activityDataQueue[0] %>";
+        // Función que recarga el gráfico.
+        function onDataReceived(series) {
+          if (!alreadyFetched[series.label]) {
+            alreadyFetched[series.label] = true;
+            data.push(series);
+          }
+          $.plot("#placeholder", data, options);
+        }
+
+        // Petición ajax
+        $.ajax({
+				  url: dataurl,
+				  type: "GET",
+				  dataType: "json",
+				  success: onDataReceived
+			  });
+
        });
 
 

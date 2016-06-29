@@ -10,7 +10,23 @@ exports.show = function(req,res){
       res.send("Datos no encontrados");
     }else {
       console.log("Se ha encontrado el siguiente doc:\n" + doc);
-      res.send(doc);
+
+      var data = [];
+      var puntoL = ["lunes", 2400];
+      var puntoM = ["martes", 3400];
+      var puntoX = ["miercoles", 4500];
+      var puntoJ = ["juevs", 1400];
+      var puntoV = ["viernes", 2700];
+
+      data.push(puntoL);
+      data.push(puntoM);
+      data.push(puntoX);
+      data.push(puntoJ);
+      data.push(puntoV);
+
+      var salida = {"label": "Actividad semanal", "data": data};
+
+      res.send(salida);
     }
   });
 };
