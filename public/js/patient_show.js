@@ -94,6 +94,8 @@ $(function(){
 
 
   // callendars
+  $( "#activity-calendar-desde" ).datepicker();
+  $( "#activity-calendar-hasta" ).datepicker();
   $( "#heartbeat-calendar-desde" ).datepicker();
   $( "#heartbeat-calendar-hasta" ).datepicker();
 });
