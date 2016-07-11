@@ -30,7 +30,9 @@
     <script src="/components/bootstrap-fileinput/js/fileinput.min.js" charset="utf-8"></script>
     <script type="text/javascript">
       $("#quizJsonFile").fileinput({
-
+        language: 'es',
+        uploadUrl: '/quiz/upload',
+        allowedFileExtensions : ['json'],
       });
     </script>
 
