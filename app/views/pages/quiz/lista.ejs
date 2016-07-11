@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/head %>
+    <link rel="stylesheet" href="/components/bootstrap-fileinput/css/fileinput.min.css" charset="utf-8">
+  </head>
+  <body>
+    <div id="wrapper">
+
+      <% include ../../partials/nav %>
+
+      <!-- Page Content -->
+      <div id="page-wrapper">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <h1 class="page-header"> <%= title %> </h1>
+                  </div>
+                  <!-- /.col-lg-12 -->
+              </div>
+              <!-- /.row -->
+              <% include ../../partials/quiz/quizList %>
+
+      </div>
+      <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <% include ../../partials/scripts_footer %>
+    <script src="/components/bootstrap-fileinput/js/fileinput.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      $("#quizJsonFile").fileinput({
+        language: 'es',
+        uploadUrl: '/quiz/upload',
+        allowedFileExtensions : ['json'],
+      });
+    </script>
+
+  </body>
+</html>
