@@ -1,9 +1,15 @@
-<% if (patients) { %>
-  <ul>
-    <% for(var i = 0; i < patients.length; i++){ %>
-      <li> Paciente: <%= i + 1 %>: <a href="/patient/<%= patients[i]._id %>"><%- patients[i].name %></a></li>
+<div class="row">
+  <div class="col-lg-8">
+    <% if (patients) { %>
+      <div class="list-group">
+        <% for(var i = 0; i < patients.length; i++){ %>
+          <a href="/patient/<%= patients[i]._id %>" class="list-group-item">
+              <span class="glyphicon glyphicon-pencil"></span> <%- patients[i].lastName %> <%- patients[i].name %> <span class="badge">Doctor: <%- patients[i].doctor %></span>
+          </a>
+          <% } %>
+      </div>
+    <% } else { %>
+      <div class="alert alert-info" role="alert"> No se encuentran resultados </div>
     <% } %>
-  </ul>
-<% } else { %>
-  <div class="alert alert-info" role="alert"> No se encuentran resultados </div>
-<% } %>
+  </div>
+</div>
