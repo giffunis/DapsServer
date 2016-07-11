@@ -4,7 +4,7 @@
       <div class="list-group">
         <% for(var i = 0; i < quizes.length; i++){ %>
           <a href="/quiz/<%= quizes[i]._id %>" class="list-group-item">
-              <span class="glyphicon glyphicon-comment"></span> <%- quizes[i].quizName %> <span class="badge">23</span>
+              <span class="glyphicon glyphicon-pencil"></span> <%- quizes[i].quizName %> <span class="badge">Preguntas: <%- quizes[i].nQuestions %></span>
           </a>
           <% } %>
       </div>
