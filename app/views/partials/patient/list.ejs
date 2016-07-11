@@ -4,7 +4,7 @@
       <div class="list-group">
         <% for(var i = 0; i < patients.length; i++){ %>
           <a href="/patient/<%= patients[i]._id %>" class="list-group-item">
-              <span class="glyphicon glyphicon-pencil"></span> <%- patients[i].lastName %> <%- patients[i].name %> <span class="badge">Doctor: <%- patients[i].doctor.name_and_surname %></span>
+              <span class="glyphicon glyphicon-user"></span> <%- patients[i].lastName %> <%- patients[i].name %> <span class="badge">Doctor: <%- patients[i].doctor.name_and_surname %></span>
           </a>
           <% } %>
       </div>
