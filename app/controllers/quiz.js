@@ -32,7 +32,7 @@ exports.index = function (req, res, next) {
     if(err){
       next(new Error(err));
     } else {
-      res.render('pages/quiz/index', {title: 'Quizes en la base de datos', partial: '../../partials/quiz/quizList', quizes: docs});
+      res.render('pages/quiz/lista', {title: 'Quizes en la base de datos', quizes: docs});
     }
   });
 };
