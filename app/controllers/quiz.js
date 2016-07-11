@@ -57,16 +57,20 @@ exports.postUpload = function (req, res, next){
           db.quizes.insert(obj, function (err) {
             if(err){
               console.log('Error: No se ha podido guardar el documento en la bd');
-              res.render('pages/quiz/upload', {title: 'Subir un nuevo test', message: null, errors: err.errors});
+              res.json({respuesta: "No se ha podido guardar el documento en la bd"});
+              // res.render('pages/quiz/upload', {title: 'Subir un nuevo test', message: null, errors: err.errors});
             } else {
               console.log('Correct: El documento se ha almacenado correctamente en la bd');
-              res.render('pages/quiz/upload', {title: 'Subir un nuevo test', message: 'Documento almacenado y volcado en la BBDD',errors: []});
+              // res.render('pages/quiz/upload', {title: 'Subir un nuevo test', message: 'Documento almacenado y volcado en la BBDD',errors: []});
+              res.json({respuesta: "Correcto: El documento se ha almacenado correctamente en la bd"});
 
             }
           });
         });
       } else {
-        res.render('pages/quiz/upload', {title: 'Subir un nuevo test', message: 'Debes elegir un archivo.json',errors: []});
+        // res.render('pages/quiz/upload', {title: 'Subir un nuevo test', message: 'Debes elegir un archivo.json',errors: []});
+        res.json({respuesta: "Error: Debes elegir un archivo.json"});
+
       }
     }
   });
