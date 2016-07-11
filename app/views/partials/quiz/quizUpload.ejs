@@ -1,10 +1,22 @@
-<form action="/quiz/upload" enctype="multipart/form-data" method="post">
-  <input type="file" name="quizJsonFile"/>
-  <button type="submit" class="btn btn-primary">Subir test</button>
-</form>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="well">
+      <form action="/quiz/upload" enctype="multipart/form-data" method="post">
+        <input type="file" name="quizJsonFile"/>
+        <button type="submit" class="btn btn-primary">Subir test</button>
+      </form>
+    </div>
+  </div>
+  <!-- /.col-lg-4 -->
+</div>
+<!-- /.row -->
 
-<% include ../errorValidate %>
+<div class="row">
+  <div class="col-lg-8">
+    <% include ../errorValidate %>
 
-<% if (message) { %>
-  <div class="alert alert-info" role="alert"> <%- message %> </div>
-<% } %>
+    <% if (message) { %>
+      <div class="alert alert-info" role="alert"> <%- message %> </div>
+    <% } %>    
+  </div>
+</div>
