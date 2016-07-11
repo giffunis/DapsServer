@@ -1,9 +1,12 @@
+
 <% if (quizes) { %>
-  <ul>
+  <div class="list-group">
     <% for(var i = 0; i < quizes.length; i++){ %>
-      <li> Quiz <%= i + 1 %>: <a href="/quiz/<%= quizes[i]._id %>"><%- quizes[i].quizName %></a></li>
-    <% } %>
-  </ul>
+      <a href="/quiz/<%= quizes[i]._id %>" class="list-group-item">
+          <span class="glyphicon glyphicon-comment"></span> <%- quizes[i].quizName %> <span class="badge">23</span>
+      </a>
+      <% } %>
+  </div>
 <% } else { %>
   <div class="alert alert-info" role="alert"> No se encuentran resultados </div>
 <% } %>
