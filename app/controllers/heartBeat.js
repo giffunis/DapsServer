@@ -1,6 +1,8 @@
 var crypto = require('crypto');
 var mongojs = require('mongojs');
 var heartbeatsDB = mongojs('mongodb://localhost/dapsserver-development', ['heartbeats']);
+var db = mongojs('mongodb://localhost/dapsserver-development', ['patients']);
+
 
 exports.show = function(req,res){
   var id = req.query.patientId;
@@ -55,6 +57,74 @@ exports.new = function(req,res){
   var firma = comprobarFirma(req.body.signature,req.body.mensaje);
   console.log("La firma es: " + firma);
 
-  res.status(200).json({'respuesta':'OK'});
+  if (firma !== true) {
+    res.status(200).json({'respuesta':'La firma es falsa'});
+  }
+
+  var latido = req.body.mensaje.pulso;
+  var idUser = req.body.mensaje.id;
+  var fecha = new Date();
+
+  var newObj;
+  var paciente;
+
+  var almacenarLatido_P = new Promise(function(resolve,reject){
+    heartbeatsDB.heartbeats.insert({"pulso": latido, "patientId": mongojs.ObjectId(idUser), "created_at": fecha}, function(err, obj){
+      if(err){
+        reject(err);
+      } else {
+        resolve(obj);
+      }
+    });
+  });
+
+  almacenarLatido_P.then(function(obj){
+    console.log("Latido almacenado");
+    newObj = obj;
+  },function(err){
+    console.log(err);
+    res.status(200).json({'respuesta':'Error en el servidor'});
+  });
+
+  var buscarPaciente_P = new Promise(function(resolve,reject){
+    db.patients.findOne({ _id: mongojs.ObjectId(idUser)}, function (err, obj){
+      if(err){
+        reject(err);
+      }else {
+        resolve(obj);
+      }
+    });
+  });
+
+  buscarPaciente_P.then(function(obj){
+    paciente = obj;
+  },function(err){
+    console.log(err);
+    res.status(200).json({'respuesta':'Error en el servidor'});
+  });
+
+  Promise.all([almacenarLatido_P, buscarPaciente_P]).then(function(){
+    var newHeartBeatDataQueue = [];
+
+    for(var i = 0; i < paciente.heartBeatDataQueue.length; i++){
+        newHeartBeatDataQueue.push(paciente.heartBeatDataQueue[i]);
+    }
+
+    newHeartBeatDataQueue.push(newObj._id);
+
+    Patient.update({ '_id': paciente._id}, {'$set': {'heartBeatDataQueue': newHeartBeatDataQueue}}, function(err){
+      if(err){
+        console.log(err);
+        res.status(200).json({'respuesta':'Error en el servidor'});
+      } else {
+        console.log("BBDD actualizada correctamente");
+        res.status(200).json({'respuesta':'OK'});
+      }
+    });
+
+  },function(){
+    console.log("No se han cumplido las promesas");
+    res.status(200).json({'respuesta':'Error en el servidor'});
+  });
 
 };
