@@ -24,3 +24,33 @@ exports.show = function(req,res){
     }
   });
 };
+
+comprobarFirma = function(mensajefirmado, respuesta) {
+  var clavePublicaMovil = '-----BEGIN PUBLIC KEY-----\n' +
+  'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbANPZ/m6DDJKt3QFYMIzHOeGzoJ0\n' +
+  'avpVCdDv2JY3VOMoavbqxVk0aS/jOI5lUmt5k9sasYtFgQ9bqHYVTilmRQ==\n' +
+  '-----END PUBLIC KEY-----';
+
+  // Choose algorithm to the hash function
+  var algorithm = 'sha1';
+
+  var message = JSON.stringify(respuesta);
+
+  console.log(message);
+
+  // Comprobar la firma y el mensaje
+  var verifier = crypto.createVerify(algorithm);
+  verifier.update(message);
+  var ver = verifier.verify(clavePublicaMovil, mensajefirmado,'base64');
+  return ver;
+};
+
+
+
+exports.new = function(req,res){
+  console.log("req.body.signature: " + req.body.signature);
+  console.log("req.body.mensaje: ");
+  console.log(req.body.mensaje);
+  var firma = comprobarFirma(req.body.signature,req.body.mensaje);
+  console.log("La firma es: " + firma);
+};
