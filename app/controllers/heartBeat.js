@@ -7,7 +7,8 @@ var db = mongojs('mongodb://localhost/dapsserver-development', ['patients']);
 exports.show = function(req,res){
   var id = req.query.patientId;
   var desde = new Date(req.query.desde);
-  var hasta = new Date(req.query.hasta);
+  var hasta = new Date(req.query.desde);
+  hasta.setHours(hasta.getHours() + 24);
   console.log(id);
   heartbeatsDB.heartbeats.find({ patientId: mongojs.ObjectId(id), created_at: { '$gte': desde, '$lte': hasta}}, function (err, docs) {
     if(err){

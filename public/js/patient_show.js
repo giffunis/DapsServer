@@ -82,8 +82,7 @@ $(function(){
 
    var parameters = {
                       patientId: $("#patientId2").val(),
-                      desde: $("#heartbeat-calendar-desde").val(),
-                      hasta: $("#heartbeat-calendar-hasta").val()
+                      desde: $("#heartbeat-calendar-desde").val()
                     };
    $.get( '/heartbeat',parameters, function(series) {
      console.log("Datos obtenidos, llamando a onDataReceived");
