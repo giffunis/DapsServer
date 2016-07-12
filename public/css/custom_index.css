@@ -1,3 +1,7 @@
 body{
-  background-color: #feb645;
+  /*background-color: #feb645;*/
+  background-image: url('/img/fondo.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
