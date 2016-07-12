@@ -38,7 +38,7 @@ exports.index = function (req, res, next) {
 };
 
 exports.show = function (req, res){
-  res.render('pages/quiz/index', {title: 'Detalles del Quiz', partial: '../../partials/quiz/quizShow', quiz: req.quiz});
+  res.render('pages/quiz/show', {title: 'Detalles del Quiz', quiz: req.quiz});
 };
 
 exports.getUpload = function (req, res) {

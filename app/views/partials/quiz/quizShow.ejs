@@ -1,46 +1,50 @@
-<% if (quiz) { %>
-  <p><strong>Nombre:</strong> <%= quiz.quizName %> </p>
-  <p><strong>Autor:</strong> <%= quiz.doctor %> </p>
+<div class="row">
+  <div class="col-lg-8">
+    <div class="well well-lg">
+      <% if (quiz) { %>
+        <p><strong>Nombre:</strong> <%= quiz.quizName %> </p>
+        <p><strong>Autor:</strong> <%= quiz.doctor %> </p>
 
-  <% for(var i = 0; i < quiz.nQuestions; i++){ %>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <p><strong> <%= quiz.questions[i].phrase %> </strong></p>
-          <% if(quiz.questions[i].answerType == 'singleChoise') { %>
-            <form action="">
-              <% for (var j = 0; j < quiz.questions[i].nAnswer; j++) { %>
-                <input type="radio" name="grupo" value=""> <%= quiz.questions[i].answers[j].body %> <br>
-              <% } %>
-            </form> <br>
-          <% } else if (quiz.questions[i].answerType == 'multipleChoise') { %>
-            <form action="">
-              <% for (var j = 0; j < quiz.questions[i].nAnswer; j++) { %>
-                <input type="checkbox" name="" value=""> <%= quiz.questions[i].answers[j].body %> <br>
-              <% } %>
-            </form> <br>
-          <% } else if (quiz.questions[i].answerType == 'number'){ %>
-            <ul>
-            <% for (var j = 0; j < quiz.questions[i].nAnswer; j++) { %>
-              <li> <%= quiz.questions[i].answers[j].body %> </li>
-            <% } %>
-          </ul>
-          <% } else { %>
-            <% for (var j = 0; j < quiz.questions[i].nAnswer; j++) { %>
-              <img src="<%= quiz.questions[i].answers[j].body %>" alt="img" width="200" height="200">
-            <% } %>
-          <% } %>
-        </div>
-      </div>
+        <% for(var i = 0; i < quiz.nQuestions; i++){ %>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="panel panel-primary">
+                  <div class="panel-heading"><strong> <%= quiz.questions[i].phrase %> </strong></div>
+                  <div class="panel-body">
+                    <% if(quiz.questions[i].answerType == 'singleChoise') { %>
+                      <form action="">
+                        <% for (var j = 0; j < quiz.questions[i].nAnswer; j++) { %>
+                          <input type="radio" name="grupo" value=""> <%= quiz.questions[i].answers[j].body %> <br>
+                        <% } %>
+                      </form> <br>
+                    <% } else if (quiz.questions[i].answerType == 'multipleChoise') { %>
+                      <form action="">
+                        <% for (var j = 0; j < quiz.questions[i].nAnswer; j++) { %>
+                          <input type="checkbox" name="" value=""> <%= quiz.questions[i].answers[j].body %> <br>
+                        <% } %>
+                      </form> <br>
+                    <% } else if (quiz.questions[i].answerType == 'number'){ %>
+                      <ul>
+                      <% for (var j = 0; j < quiz.questions[i].nAnswer; j++) { %>
+                        <li> <%= quiz.questions[i].answers[j].body %> </li>
+                      <% } %>
+                    </ul>
+                    <% } else { %>
+                      <% for (var j = 0; j < quiz.questions[i].nAnswer; j++) { %>
+                        <img src="<%= quiz.questions[i].answers[j].body %>" alt="img" width="200" height="200">
+                      <% } %>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+
+      <% } else { %>
+        <div class="alert alert-info" role="alert"> Ha habido un error. Comuníquese con su administrador de la base de datos </div>
+      <% } %>
     </div>
-  <% } %>
-
-
-
-
-
-
-
-<% } else { %>
-  <div class="alert alert-info" role="alert"> Ha habido un error. Comuníquese con su administrador de la base de datos </div>
-<% } %>
+  </div>
+</div>
