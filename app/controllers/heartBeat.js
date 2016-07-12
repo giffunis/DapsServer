@@ -51,6 +51,9 @@ exports.new = function(req,res){
   console.log("req.body.signature: " + req.body.signature);
   console.log("req.body.mensaje: ");
   console.log(req.body.mensaje);
-  var firma = comprobarFirma(req.body.signature,req.body.mensaje);
-  console.log("La firma es: " + firma);
+//  var firma = comprobarFirma(req.body.signature,req.body.mensaje);
+  //console.log("La firma es: " + firma);
+
+  res.status(200).json({'respuesta':'OK'});
+
 };
