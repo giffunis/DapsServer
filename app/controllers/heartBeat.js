@@ -97,6 +97,7 @@ exports.new = function(req,res){
   });
 
   buscarPaciente_P.then(function(obj){
+    console.log("Paciente encontrado");
     paciente = obj;
   },function(err){
     console.log(err);
@@ -104,6 +105,7 @@ exports.new = function(req,res){
   });
 
   Promise.all([almacenarLatido_P, buscarPaciente_P]).then(function(){
+
     var newHeartBeatDataQueue = [];
 
     for(var i = 0; i < paciente.heartBeatDataQueue.length; i++){
@@ -112,7 +114,7 @@ exports.new = function(req,res){
 
     newHeartBeatDataQueue.push(newObj._id);
 
-    Patient.update({ '_id': paciente._id}, {'$set': {'heartBeatDataQueue': newHeartBeatDataQueue}}, function(err){
+    db.patients.update({ '_id': paciente._id}, {'$set': {'heartBeatDataQueue': newHeartBeatDataQueue}}, function(err){
       if(err){
         console.log(err);
         res.status(200).json({'respuesta':'Error en el servidor'});
