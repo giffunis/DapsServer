@@ -55,7 +55,7 @@ module.exports = function(app, config) {
   app.use('/doctor/', doctorRouter);
   app.use('/quiz/', quizRouter);
   app.use('/patient/', patientRouter);
-  app.use('/heartBeat/', heartBeatRouter);
+  app.use('/heartbeat/', heartBeatRouter);
   app.use('/activity/', activityRouter);
 
   app.use(function (req, res, next) {

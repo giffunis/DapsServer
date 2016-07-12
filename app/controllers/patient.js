@@ -8,8 +8,6 @@ var db2 = mongojs('mongodb://localhost/dapsserver-development', ['quizes']);
 var dbSolvedQuises = mongojs('mongodb://localhost/dapsserver-development', ['solvedquizes']);
 
 
-
-
 exports.load = function (req, res, next, patientId) {
   db.patients.findOne({ _id: mongojs.ObjectId(patientId)}, function (err, patient){
     if (err) {
@@ -24,8 +22,6 @@ exports.load = function (req, res, next, patientId) {
     }
   });
 };
-
-
 
 comprobarFirma = function(mensajefirmado, respuesta) {
   var clavePublicaMovil = '-----BEGIN PUBLIC KEY-----\n' +
@@ -314,60 +310,60 @@ exports.uploadSolvedQuiz = function (req, res) {
   if (firma === false) {
     res.status(200).json({'respuesta':'No se puede procesar, firma no válida'});
   }else {
-  var objeto = req.body.mensaje;
+    var objeto = req.body.mensaje;
 
 
-  var saveInDBP = new Promise(function(resolve,reject){
-    dbSolvedQuises.solvedquizes.insert(objeto, function (err, quiz) {
-      if(err){
-        reject(err);
-      } else {
-        result = quiz;
-        resolve();
-      }
-    });
-  });
-
-  saveInDBP.then(function (){
-    console.log('saveInDBP se ha cumplido. Armacenando el quiz resuelto en la BBDD');
-
-    var deleteUnSolvedQuizP = new Promise(function(resolve, reject){
-      var unSolvedQuizes = [];
-      for(var i = 0; i < req.patient.unSolvedQuizes.length; i++){
-        if(req.patient.unSolvedQuizes[i] != objeto.quizId){
-          unSolvedQuizes.push(req.patient.unSolvedQuizes[i]);
-        }
-      }
-      Patient.update({ '_id': req.patient._id}, {'$set': {'unSolvedQuizes': unSolvedQuizes}}, function(err){
+    var saveInDBP = new Promise(function(resolve,reject){
+      dbSolvedQuises.solvedquizes.insert(objeto, function (err, quiz) {
         if(err){
           reject(err);
         } else {
+          result = quiz;
           resolve();
         }
       });
-    }).then(function (){
-      console.log("deleteUnSolvedQuizP: Se ha eliminado el test de unSolvedQuizes");
-    }, function(err){
-      console.log("deleteUnSolvedQuizP: Se ha producido un error, " + err);
     });
 
-  }, function (err) {
-    console.log('Error en saveInDBP' + err);
-  });
+    saveInDBP.then(function (){
+      console.log('saveInDBP se ha cumplido. Armacenando el quiz resuelto en la BBDD');
 
-  Promise.all([saveInDBP]).then(function(){
-    var solvedQuizes = [];
-    solvedQuizes = req.patient.solvedQuizes;
-    solvedQuizes.push(result._id);
-    Patient.update({ '_id': req.patient._id}, {'$set': {'solvedQuizes': solvedQuizes}}, function(err){
-      if(err){
-        res.status(200).json({'respuesta':'Se han cumplido las promesas pero no se ha podido actualizar el solvedquizes del paciente'});
-      } else {
-        res.status(200).json({'respuesta':'ok'});
-      }
+      var deleteUnSolvedQuizP = new Promise(function(resolve, reject){
+        var unSolvedQuizes = [];
+        for(var i = 0; i < req.patient.unSolvedQuizes.length; i++){
+          if(req.patient.unSolvedQuizes[i] != objeto.quizId){
+            unSolvedQuizes.push(req.patient.unSolvedQuizes[i]);
+          }
+        }
+        Patient.update({ '_id': req.patient._id}, {'$set': {'unSolvedQuizes': unSolvedQuizes}}, function(err){
+          if(err){
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      }).then(function (){
+        console.log("deleteUnSolvedQuizP: Se ha eliminado el test de unSolvedQuizes");
+      }, function(err){
+        console.log("deleteUnSolvedQuizP: Se ha producido un error, " + err);
+      });
+
+    }, function (err) {
+      console.log('Error en saveInDBP' + err);
     });
-  }, function(){res.status(200).json({'respuesta':'No se ha podido guardar el quiz resuelto en la BBDD'});});
-}
+
+    Promise.all([saveInDBP]).then(function(){
+      var solvedQuizes = [];
+      solvedQuizes = req.patient.solvedQuizes;
+      solvedQuizes.push(result._id);
+      Patient.update({ '_id': req.patient._id}, {'$set': {'solvedQuizes': solvedQuizes}}, function(err){
+        if(err){
+          res.status(200).json({'respuesta':'Se han cumplido las promesas pero no se ha podido actualizar el solvedquizes del paciente'});
+        } else {
+          res.status(200).json({'respuesta':'ok'});
+        }
+      });
+    }, function(){res.status(200).json({'respuesta':'No se ha podido guardar el quiz resuelto en la BBDD'});});
+  }
 };
 
 exports.showSolvedQuiz = function(req,res){
