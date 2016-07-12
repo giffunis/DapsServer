@@ -17,7 +17,7 @@ exports.show = function(req,res){
       var data = [];
       var punto;
       for (var i = 0; i < docs.length; i++) {
-        punto = [docs[i].created_at.getMonth() + "/" + docs[i].created_at.getDay(), docs[i].beats];
+        punto = [docs[i].created_at.getMonth() + "/" + docs[i].created_at.getDay(), docs[i].pulso];
         data.push(punto);
       }
       var salida = {"label": "Frecuencia Cardiaca", "data": data};
@@ -47,8 +47,6 @@ comprobarFirma = function(mensajefirmado, respuesta) {
   var ver = verifier.verify(clavePublicaMovil, mensajefirmado,'base64');
   return ver;
 };
-
-
 
 exports.new = function(req,res){
   console.log("req.body.signature: " + req.body.signature);
