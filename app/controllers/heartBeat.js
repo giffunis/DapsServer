@@ -17,7 +17,7 @@ exports.show = function(req,res){
       var data = [];
       var punto;
       for (var i = 0; i < docs.length; i++) {
-        punto = [docs[i].created_at.getMonth() + "/" + docs[i].created_at.getDay(), docs[i].pulso];
+        punto = [docs[i].created_at.getHours() + ":" + docs[i].created_at.getMinutes(), docs[i].pulso];
         data.push(punto);
       }
       var salida = {"label": "Frecuencia Cardiaca", "data": data};
