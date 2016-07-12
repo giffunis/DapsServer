@@ -1,3 +1,4 @@
+var crypto = require('crypto');
 var mongojs = require('mongojs');
 var heartbeatsDB = mongojs('mongodb://localhost/dapsserver-development', ['heartbeats']);
 
@@ -36,7 +37,7 @@ comprobarFirma = function(mensajefirmado, respuesta) {
 
   var message = JSON.stringify(respuesta);
 
-  console.log(message);
+  // console.log(message);
 
   // Comprobar la firma y el mensaje
   var verifier = crypto.createVerify(algorithm);
@@ -51,8 +52,8 @@ exports.new = function(req,res){
   console.log("req.body.signature: " + req.body.signature);
   console.log("req.body.mensaje: ");
   console.log(req.body.mensaje);
-//  var firma = comprobarFirma(req.body.signature,req.body.mensaje);
-  //console.log("La firma es: " + firma);
+  var firma = comprobarFirma(req.body.signature,req.body.mensaje);
+  console.log("La firma es: " + firma);
 
   res.status(200).json({'respuesta':'OK'});
 
