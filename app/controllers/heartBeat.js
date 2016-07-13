@@ -29,7 +29,7 @@ exports.show = function(req,res){
   });
 };
 
-comprobarFirma = function(mensajefirmado, respuesta) {
+comprobarSignature = function(mensajefirmado, respuesta) {
   var clavePublicaMovil = '-----BEGIN PUBLIC KEY-----\n' +
   'MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEbANPZ/m6DDJKt3QFYMIzHOeGzoJ0\n' +
   'avpVCdDv2JY3VOMoavbqxVk0aS/jOI5lUmt5k9sasYtFgQ9bqHYVTilmRQ==\n' +
@@ -53,7 +53,7 @@ exports.new = function(req,res){
   console.log("req.body.signature: " + req.body.signature);
   console.log("req.body.mensaje: ");
   console.log(req.body.mensaje);
-  var firma = comprobarFirma(req.body.signature,req.body.mensaje);
+  var firma = comprobarSignaturea(req.body.signature,req.body.mensaje);
   console.log("La firma es: " + firma);
 
   if (firma !== true) {
