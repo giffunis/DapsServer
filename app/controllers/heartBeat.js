@@ -53,7 +53,7 @@ exports.new = function(req,res){
   console.log("req.body.signature: " + req.body.signature);
   console.log("req.body.mensaje: ");
   console.log(req.body.mensaje);
-  var firma = comprobarSignaturea(req.body.signature,req.body.mensaje);
+  var firma = comprobarSignature(req.body.signature,req.body.mensaje);
   console.log("La firma es: " + firma);
 
   if (firma !== true) {
