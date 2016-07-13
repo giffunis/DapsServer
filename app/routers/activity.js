@@ -5,5 +5,6 @@ var activityController = require('../controllers/activity');
 
 // Rutas para obtener los datos del corazón
 activityRouter.get('/', sessionController.loginRequired, activityController.show);
+activityRouter.put('/new', activityController.new);
 
 module.exports = activityRouter;
