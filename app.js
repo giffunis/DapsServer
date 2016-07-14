@@ -34,10 +34,10 @@ var options = {
 require('./config/express')(app, config);
 
 var server = app.listen(config.port, function () {
-  console.log('Express server listening on port ' + config.port);
+  console.log('Express server listening on port ' + server.address().port);
 });
 
 var serverSecure = https.createServer(options, app);
-serverSecure.listen(4000, function() {
-  console.log('Express serverSecure listening on port ' + server.address().port);
+serverSecure.listen(config.portSecure, function() {
+  console.log('Express serverSecure listening on port ' + serverSecure.address().port);
 });

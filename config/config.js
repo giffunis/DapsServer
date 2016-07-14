@@ -9,6 +9,7 @@ var config = {
       name: 'dapsserver'
     },
     port: process.env.PORT || 3000,
+    portSecure: process.env.PORT || 4000,
     db: 'mongodb://localhost/dapsserver-development'
   },
 
@@ -18,6 +19,7 @@ var config = {
       name: 'dapsserver'
     },
     port: process.env.PORT || 3000,
+    portSecure: process.env.PORT || 4000,
     db: 'mongodb://localhost/dapsserver-test'
   },
 
@@ -27,6 +29,7 @@ var config = {
       name: 'dapsserver'
     },
     port: process.env.PORT || 3000,
+    portSecure: process.env.PORT || 4000,
     db: 'mongodb://localhost/dapsserver-production'
   }
 };
