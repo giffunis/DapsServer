@@ -250,7 +250,7 @@ exports.addUnsolvedQuiz = function(req, res, next){
     if(err){
       next(new Error(err));
     } else {
-      res.send("ok, el test ha sido asignado");
+      res.redirect('/patient/'+ req.patient._id);
     }
   });
 };
