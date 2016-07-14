@@ -8,8 +8,8 @@ var config = {
     app: {
       name: 'dapsserver'
     },
-    port: process.env.PORT || 3000,
-    portSecure: process.env.PORT || 4000,
+    port: process.env.PORT || 8081,
+    portSecure: process.env.PORT || 8082,
     db: 'mongodb://localhost/dapsserver-development'
   },
 
@@ -18,8 +18,8 @@ var config = {
     app: {
       name: 'dapsserver'
     },
-    port: process.env.PORT || 3000,
-    portSecure: process.env.PORT || 4000,
+    port: process.env.PORT || 8081,
+    portSecure: process.env.PORT || 8082,
     db: 'mongodb://localhost/dapsserver-test'
   },
 
@@ -28,8 +28,8 @@ var config = {
     app: {
       name: 'dapsserver'
     },
-    port: process.env.PORT || 3000,
-    portSecure: process.env.PORT || 4000,
+    port: process.env.PORT || 8081,
+    portSecure: process.env.PORT || 8082,
     db: 'mongodb://localhost/dapsserver-production'
   }
 };
