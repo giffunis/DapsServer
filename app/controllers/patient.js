@@ -130,7 +130,7 @@ exports.create = function(req, res, next) {
         }
         res.render('pages/patient/new', { title: 'Crear un paciente', patient: patient, errors: err.errors});
     } else {
-      res.send('Usuario creado correctamente');
+      res.redirect('/patient');
     }
   });
 };
