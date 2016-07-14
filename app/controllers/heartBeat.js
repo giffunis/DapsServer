@@ -50,6 +50,7 @@ comprobarSignature = function(mensajefirmado, respuesta) {
 };
 
 exports.new = function(req,res){
+  console.log(req.body);
   console.log("req.body.signature: " + req.body.signature);
   console.log("req.body.mensaje: ");
   console.log(req.body.mensaje);
